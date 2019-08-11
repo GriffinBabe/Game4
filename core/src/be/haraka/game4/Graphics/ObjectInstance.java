@@ -1,6 +1,8 @@
 package be.haraka.game4.Graphics;
 
 import be.haraka.game4.Model.GameObject;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * ObjectInstance links a GameObject with a Model to render.
@@ -27,8 +29,8 @@ public class ObjectInstance {
      * the Model's {@link Model#texture} file at the {@link GameObject}
      * position.
      */
-    public void render() {
-
+    public void render(SpriteBatch batch) {
+        Texture texture = model.getTexture();
     }
 
 }

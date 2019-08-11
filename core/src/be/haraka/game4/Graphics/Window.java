@@ -74,7 +74,7 @@ public class Window {
         batch.begin();
 
         for (ObjectInstance instance : renderInstances) {
-            instance.render();
+            // TODO: render object instances.
         }
 
         batch.end();
@@ -113,7 +113,8 @@ public class Window {
     public void setTilesInstances(World world) {
         List<Tile> tiles = world.gatherTiles();
         for (Tile tile : tiles) {
-            // TODO: Load a model from the object name
+            Model model = modelList.getModel(tile.objectName);
+            renderInstances.add(new ObjectInstance(tile, model));
         }
     }
 }

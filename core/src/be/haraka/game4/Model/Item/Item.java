@@ -11,8 +11,12 @@ import be.haraka.game4.Model.GameObject;
  */
 public abstract class Item extends GameObject {
 
-    public Item() {
-        super(0.0f, 0.0f);
+    public Item(String objectName) {
+        super(0.0f, 0.0f, objectName);
+    }
+
+    public Item(float x, float y, String objectName) {
+        super(x,y, objectName);
     }
 
     public abstract void act();

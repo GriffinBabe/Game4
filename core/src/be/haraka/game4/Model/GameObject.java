@@ -7,7 +7,7 @@ public abstract class GameObject extends Observable {
     public float x, y;
 
     // Helpful to find which render do we need
-    String objectName;
+    public String objectName;
 
     public GameObject(float x, float y, String objectName) {
         this.x = x;

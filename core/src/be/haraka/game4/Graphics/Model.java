@@ -26,4 +26,6 @@ public class Model {
         this.renderPriority = renderPriority;
         texture = new Texture(textureFile);
     }
+
+    public Texture getTexture() {return texture;}
 }
