@@ -23,10 +23,13 @@ public class MapLoader {
     private static String LAYER = "layers";
     private static String TILEDATA = "data";
 
+    // While parsing the JSON file, the order must be reversed.
+    private static boolean REVERSE_POSITION = true;
+
     /**
      * Starts the JSON parser and sets the World's size.
-     * Continues by setting each layer on the {@link #LoadLayer(String, World)}
-     * method.
+     * Then proceeds by setting each layer on the
+     * {@link #LoadLayer(JSONObject, World, int, int)} method.
      *
      * @param jsonPath, path to the Json path containing
      *                  the map info.
@@ -78,7 +81,11 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 index = y * width + x;
                 TileType type = TileType.getById((int) (long) tileData.get(index));
-                world.setTile(x, y, new Tile(x, y, type));
+                if (REVERSE_POSITION) {
+                    world.setTile(width-x-1, height-y-1, new Tile(width-x-1, height-y-1, type));
+                } else {
+                    world.setTile(x, y, new Tile(x, y, type));
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Camera {
 
     // Zoom constants
-    private static float INIT_ZOOM = 3.5f;
+    private static float INIT_ZOOM = 2.0f;
     private static float MAX_ZOOM = 4.0f;
     private static float MIN_ZOOM = 1.0f;
     private static float ZOOM_STEP = 0.1f;
@@ -25,16 +25,16 @@ public class Camera {
     private static int EDGE_MARGIN = 50;
 
     // TODO: Update them relatively to the map dimensions.
-    private static int MIN_X = 200;
-    private static int MAX_X = 3000;
+    private static int MIN_X = 0;
+    private static int MAX_X = 1000;
     private static int MIN_Y = -800;
     private static int MAX_Y = 800;
 
     // Camera speed constant
-    private static float CAM_SPEED = 20.0f;
+    private static float CAM_SPEED = 1000.0f;
 
     // If locked it will follow the player
-    private boolean locked;
+    private boolean locked = false;
 
     // Libgdx camera class, used for opengl.
     private OrthographicCamera camera;
@@ -62,18 +62,19 @@ public class Camera {
             // TODO: Something to follow the player around.
         } else {
             if (Gdx.input.getX() < EDGE_MARGIN & camera.position.x > MIN_X)
-                camera.translate(-CAM_SPEED,0,0);
+                camera.translate(-CAM_SPEED*deltaTime,0,0);
 
             else if (Gdx.input.getX() > Gdx.graphics.getWidth() - EDGE_MARGIN & camera.position.x < MAX_X)
-                camera.translate(CAM_SPEED,0,0);
+                camera.translate(CAM_SPEED*deltaTime,0,0);
 
             if (Gdx.input.getY() < EDGE_MARGIN & camera.position.y < MAX_Y)
-                camera.translate(0,CAM_SPEED,0);
+                camera.translate(0,CAM_SPEED*deltaTime,0);
 
             else if (Gdx.input.getY() > Gdx.graphics.getHeight() - EDGE_MARGIN & camera.position.y > MIN_Y)
-                camera.translate(0,-CAM_SPEED,0);
+                camera.translate(0,-CAM_SPEED*deltaTime,0);
         }
         batch.setProjectionMatrix(camera.combined);
+        camera.update();
     }
 
     /**

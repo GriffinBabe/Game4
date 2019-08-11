@@ -37,4 +37,10 @@ public class ObjectInstance {
         batch.draw(texture, batchPos.x, batchPos.y);
     }
 
+    public float getX() {return object.x;}
+
+    public float getY() {return object.y;}
+
+    public int getRenderPriority() {return model.getRenderPriority();}
+
 }

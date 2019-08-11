@@ -4,6 +4,7 @@ import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 
 /**
  * Main model class. Entry point from LIBGDX.
@@ -18,6 +19,9 @@ public class Game extends ApplicationAdapter {
 
     private static String MAP_PATH = "assets/map/map1.json";
 
+    private static float FPS_CAP = 60.0f;
+    private static float MS_PER_FRAME = 1.0f/FPS_CAP * 1000.0f;
+
     private World world;
 
     private Window window = null;
@@ -31,6 +35,7 @@ public class Game extends ApplicationAdapter {
 
 		if (!serverMode) {
             window = new Window();
+            window.setTilesInstances(world);
         }
 	}
 
@@ -40,7 +45,8 @@ public class Game extends ApplicationAdapter {
      */
 	@Override
 	public void render () {
-		this.window.render(0.0f);
+        float delta = Gdx.graphics.getDeltaTime();
+        this.window.render(delta);
 	}
 
     /**

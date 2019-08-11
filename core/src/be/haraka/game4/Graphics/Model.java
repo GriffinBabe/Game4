@@ -28,4 +28,6 @@ public class Model {
     }
 
     public Texture getTexture() {return texture;}
+
+    public int getRenderPriority() {return renderPriority;}
 }

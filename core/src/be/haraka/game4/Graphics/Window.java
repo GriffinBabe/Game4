@@ -5,9 +5,11 @@ import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.Tile;
 import be.haraka.game4.Model.Map.World;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,6 +30,9 @@ public class Window {
     private static int HEIGHT = 720;
 
     private static String modelsPath = "assets/models.json";
+
+    // Our comparator for sorting the renderInstances
+    private static RenderOrderComparator sorter = new RenderOrderComparator();
 
     // List containing all the objects instances to render
     private List<ObjectInstance> renderInstances = new ArrayList<>();
@@ -69,9 +74,14 @@ public class Window {
      */
     public void render(float deltaTime) {
         // TODO: Give the right localplayer instance.
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         camera.update(deltaTime, batch, null);
 
         batch.begin();
+
+        sortRenderInstances();
 
         for (ObjectInstance instance : renderInstances) {
             instance.render(batch);
@@ -116,5 +126,16 @@ public class Window {
             Model model = modelList.getModel(tile.objectName);
             renderInstances.add(new ObjectInstance(tile, model));
         }
+    }
+
+    /**
+     * Sorts the render Instances by they're position.
+     *
+     */
+    public void sortRenderInstances() {
+        // TODO: Improve the algorithm
+        // https://gamedev.stackexchange.com/questions/103442/
+        // how-do-i-determine-the-draw-order-of-isometric-2d-objects-occupying-multiple-til
+        Collections.sort(renderInstances, sorter);
     }
 }

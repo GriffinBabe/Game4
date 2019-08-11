@@ -14,7 +14,7 @@ public class Translations {
 
     // Hardcoded for the moment
     private static int TILE_WIDTH = 64;
-    private static int TILE_HEIGHT = 128;
+    private static int TILE_HEIGHT = 64;
 
     /**
      * Set map informations to get the
