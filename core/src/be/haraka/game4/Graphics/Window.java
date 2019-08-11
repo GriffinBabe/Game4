@@ -74,7 +74,7 @@ public class Window {
         batch.begin();
 
         for (ObjectInstance instance : renderInstances) {
-            // TODO: render object instances.
+            instance.render(batch);
         }
 
         batch.end();

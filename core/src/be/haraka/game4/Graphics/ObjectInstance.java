@@ -1,5 +1,7 @@
 package be.haraka.game4.Graphics;
 
+import be.haraka.game4.Math.Translations;
+import be.haraka.game4.Math.Vec2i;
 import be.haraka.game4.Model.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +33,8 @@ public class ObjectInstance {
      */
     public void render(SpriteBatch batch) {
         Texture texture = model.getTexture();
+        Vec2i batchPos = Translations.isoToScreen(object.x, object.y);
+        batch.draw(texture, batchPos.x, batchPos.y);
     }
 
 }
