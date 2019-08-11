@@ -19,9 +19,11 @@ public class Model {
     public String name;
 
     private Texture texture;
+    private int renderPriority ;
 
-    public Model(String name, String textureFile) {
+    public Model(String name, String textureFile, int renderPriority) {
         this.name = name;
+        this.renderPriority = renderPriority;
         texture = new Texture(textureFile);
     }
 }

@@ -8,12 +8,14 @@ package be.haraka.game4.Model.Map;
  */
 public enum TileType {
 
-    VOID(-1),GRASS(0), WALL(1), WATER(2);
+    VOID(-1,"tile-void"),GRASS(0,"tile-grass"), WALL(1,"tile-wall"), WATER(2,"tile-water");
 
     public int typeID;
+    public String objectName;
 
-    TileType(int id) {
+    TileType(int id, String objectName) {
         this.typeID = id;
+        this.objectName = objectName;
     }
 
     /**

@@ -12,8 +12,8 @@ public class Mob extends GameObject {
 
     private State state = State.IDLE;
 
-    public Mob(float x, float y) {
-        super(x,y);
+    public Mob(float x, float y, String objectName) {
+        super(x,y, objectName);
     }
 
 }

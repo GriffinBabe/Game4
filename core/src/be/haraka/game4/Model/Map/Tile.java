@@ -21,7 +21,7 @@ public class Tile extends GameObject {
 
     // Tile is a GameObject but position is an integer
     public Tile(int x, int y, TileType type) {
-        super(x,y);
+        super(x,y, type.objectName);
         this.type = type;
     }
 

@@ -1,8 +1,12 @@
 package be.haraka.game4.Graphics;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -16,7 +20,14 @@ import java.util.HashMap;
  */
 public class ModelList {
 
-    private DocumentBuilder builder;
+    // JSON parsing key names, constants
+    private static String TILE_LIST = "tiles";
+    private static String TILE_NAME = "name";
+    private static String TILE_PRIORITY = "priority";
+    private static String TILE_PATH = "path";
+
+
+    // The hashmap containing models corresponding to gameobject names.
     private HashMap<String, Model> modelList;
 
     public ModelList(String jsonFile) {
@@ -25,22 +36,21 @@ public class ModelList {
 
     /**
      * Starts the json parsing. Initializing the HashMap.
-     * And proceed by calling {@link #parseModels(String)}.
-     * @param jsonFile, the path to the model linking json
+     * And proceed by calling {@link #parseTiles(JSONObject)}}.
+     * @param jsonPath, the path to the model linking json
      *                  file.
      */
-    private void init(String jsonFile) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
-        try {
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException ignored) {
-            ignored.printStackTrace();
-            return;
-        }
-
+    private void init(String jsonPath) {
         modelList = new HashMap<>();
-        parseModels(jsonFile);
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader(jsonPath)) {
+            JSONObject document = (JSONObject) parser.parse(reader);
+            parseTiles(document);
+            // TODO: Load animations, items, etc...
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -48,10 +58,21 @@ public class ModelList {
      * Elements can be: - Tiles
      *                  - Mobs (with they're animations)
      *                  - Other elements
-     * @param jsonFile
+     * @param document
      */
-    private void parseModels(String jsonFile) {
+    private void parseTiles(JSONObject document) {
+        JSONArray tiles = (JSONArray) document.get(TILE_LIST);
+        for (int i = 0; i < tiles.size(); i++) {
+            // For each tile in the json document, loads the values
+            JSONObject tile = (JSONObject)tiles.get(i);
+            String name = (String) tile.get(TILE_NAME);
+            int priority = (int)(long) tile.get(TILE_PRIORITY);
+            String path = (String) tile.get(TILE_PATH);
 
+            // Loads the model and sets it to the hashmap with the loaded values
+            Model model = new Model(name, path, priority);
+            modelList.put(name, model);
+        }
     }
 
     /**

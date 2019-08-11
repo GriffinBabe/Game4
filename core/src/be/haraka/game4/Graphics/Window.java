@@ -2,7 +2,10 @@ package be.haraka.game4.Graphics;
 
 import be.haraka.game4.Game;
 import be.haraka.game4.Model.GameObject;
+import be.haraka.game4.Model.Map.Tile;
+import be.haraka.game4.Model.Map.World;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +24,22 @@ import java.util.List;
 public class Window {
 
     // Initial window size. Can be resized.
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
+    private static int WIDTH = 1280;
+    private static int HEIGHT = 720;
 
-    public static String modelsPath = "assets/models.json";
+    private static String modelsPath = "assets/models.json";
 
     // List containing all the objects instances to render
-    public List<ObjectInstance> renderInstances = new ArrayList<>();
+    private List<ObjectInstance> renderInstances = new ArrayList<>();
 
     // Check ModelList doc.
-    public ModelList modelList = null;
+    private ModelList modelList = null;
+
+
+    // Main batch used to render the map and the players.
+    private SpriteBatch batch;
+
+    private Camera camera;
 
     public Window() {
         init();
@@ -44,6 +53,9 @@ public class Window {
         Gdx.graphics.setWindowedMode(WIDTH, HEIGHT);
         Gdx.graphics.setResizable(true);
 
+        batch = new SpriteBatch();
+        camera = new Camera();
+
         modelList = new ModelList(modelsPath);
     }
 
@@ -56,9 +68,16 @@ public class Window {
      *                  animations.
      */
     public void render(float deltaTime) {
+        // TODO: Give the right localplayer instance.
+        camera.update(deltaTime, batch, null);
+
+        batch.begin();
+
         for (ObjectInstance instance : renderInstances) {
             instance.render();
         }
+
+        batch.end();
     }
 
     /**
@@ -83,5 +102,18 @@ public class Window {
      */
     public void deleteObject(GameObject o) {
         // TODO: Remove the respective object instance.
+    }
+
+    /**
+     * Initializes the Gameobject instances from the world
+     * tiles.
+     *
+     * @param world
+     */
+    public void setTilesInstances(World world) {
+        List<Tile> tiles = world.gatherTiles();
+        for (Tile tile : tiles) {
+            // TODO: Load a model from the object name
+        }
     }
 }

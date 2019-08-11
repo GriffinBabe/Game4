@@ -81,4 +81,19 @@ public class World implements Observer {
         map[x][y] = tile;
     }
 
+    /**
+     * Gathers all the tiles into a list from an outside class.
+     * Used mainly for the Graphics to instantiate each tile.
+     * @return
+     */
+    public List<Tile> gatherTiles() {
+        List<Tile> tiles = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                tiles.add(map[x][y]);
+            }
+        }
+        return tiles;
+    }
+
 }

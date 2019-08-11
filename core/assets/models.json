@@ -1,5 +1,42 @@
 {
-  "Characters" : {
-    "Human" : "assets/characters/human.png"
-  }
+  "mobs" : [
+    {
+      "mob-human" : {
+        "path": "assets/characters/human",
+        "priority": 1,
+        "animated": true
+      }
+    }
+  ],
+
+  "tiles" : [
+    {
+        "name": "tile-grass",
+        "id": 0,
+        "path": "assets/tiles/grass.png",
+        "priority": 0,
+        "animated": false
+    },
+    {
+        "name" : "tile-wall",
+        "id": 1,
+        "path": "assets/tiles/wall.png",
+        "priority": 1,
+        "animated": false
+    },
+    {   "name": "tile-water",
+        "id": 2,
+        "path":"assets/tiles/water.png",
+        "priority": 0,
+        "animated": false
+    }
+  ],
+
+  "animations" : [
+    {
+      "name": "walk",
+      "path": "walk.png"
+    }
+  ]
+
 }
