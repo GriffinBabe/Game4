@@ -7,9 +7,10 @@ import java.util.HashMap;
 
 /**
  * This class contains a hashmap loaded from a JSON File.
- * The hashmap consits of Model with String as a string and
- * is used as a way to get the right model from the right
- * GameObject.
+ *
+ * The hashmap consists of {@link Model} with String as a key and
+ * is needed to link the right model to the right {@link be.haraka.game4.Model.GameObject}
+ * from the GameObject's {@link be.haraka.game4.Model.GameObject#objectName}.
  *
  * @author GriffinBabe
  */
@@ -19,10 +20,16 @@ public class ModelList {
     private HashMap<String, Model> modelList;
 
     public ModelList(String jsonFile) {
-        Init(jsonFile);
+        init(jsonFile);
     }
 
-    private void Init(String jsonFile) {
+    /**
+     * Starts the json parsing. Initializing the HashMap.
+     * And proceed by calling {@link #parseModels(String)}.
+     * @param jsonFile, the path to the model linking json
+     *                  file.
+     */
+    private void init(String jsonFile) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         try {
@@ -36,10 +43,22 @@ public class ModelList {
         parseModels(jsonFile);
     }
 
+    /**
+     * Starts parsing the json file element by element.
+     * Elements can be: - Tiles
+     *                  - Mobs (with they're animations)
+     *                  - Other elements
+     * @param jsonFile
+     */
     private void parseModels(String jsonFile) {
 
     }
 
+    /**
+     * Gets the right model from the {@link be.haraka.game4.Model.GameObject#objectName}.
+     * @param name, {@link be.haraka.game4.Model.GameObject#objectName}
+     * @return model, the right model.
+     */
     public Model getModel(String name) {
         return modelList.get(name);
     }

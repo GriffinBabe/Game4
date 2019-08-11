@@ -1,5 +1,10 @@
 package be.haraka.game4.Model;
 
+/**
+ * State pattern base class.
+ *
+ * @author GriffinBabe
+ */
 public enum State {
 
     IDLE(0),

@@ -5,6 +5,11 @@ import be.haraka.game4.Model.Item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inventory class that every mob and character owns.
+ *
+ * @author GriffinBabe.
+ */
 public class Inventory {
 
     private int maxSize;
