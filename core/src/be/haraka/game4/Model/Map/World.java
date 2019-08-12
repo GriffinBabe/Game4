@@ -3,10 +3,7 @@ package be.haraka.game4.Model.Map;
 import be.haraka.game4.Game;
 import be.haraka.game4.Model.GameObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 /**
  * One of the Model's main classes. Will contain
@@ -50,10 +47,15 @@ public class World implements Observer {
      * This will update the state of each GameObject
      * in the game.
      *
+     * Uses an iterator as some objects can be deleted
+     * from the list while iterating over it.
+     *
      * @param delta, the elapsed time since last loop.
      */
     public void updateLogic(float delta) {
-        for (GameObject object : objectList) {
+        ListIterator<GameObject> iter = objectList.listIterator();
+        while (iter.hasNext()) {
+            GameObject object = iter.next();
             object.update(this, delta);
         }
     }

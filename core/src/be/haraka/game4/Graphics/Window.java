@@ -1,6 +1,9 @@
 package be.haraka.game4.Graphics;
 
 import be.haraka.game4.Game;
+import be.haraka.game4.Graphics.Instances.ObjectInstance;
+import be.haraka.game4.Graphics.Models.Model;
+import be.haraka.game4.Graphics.Models.ModelList;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.Tile;
 import be.haraka.game4.Model.Map.World;
@@ -84,7 +87,7 @@ public class Window {
         sortRenderInstances();
 
         for (ObjectInstance instance : renderInstances) {
-            instance.render(batch);
+            instance.render(deltaTime, batch);
         }
 
         batch.end();

@@ -1,5 +1,7 @@
 package be.haraka.game4.Graphics;
 
+import be.haraka.game4.Graphics.Instances.ObjectInstance;
+
 import java.util.Comparator;
 
 /**
