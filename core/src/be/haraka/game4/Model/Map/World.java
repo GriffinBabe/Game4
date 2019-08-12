@@ -33,7 +33,9 @@ public class World implements Observer {
      */
     private Tile map[][];
 
-    // Contains all the GameObjects.
+    /**
+     * Contains all the GameObjects of the map except the tiles.
+     */
     private List<GameObject> objectList = new ArrayList<>();
 
     public World(Game game, String mapFile) {
@@ -42,7 +44,25 @@ public class World implements Observer {
     }
 
     /**
+     * Called from the game main loop before
+     * the graphics update.
+     *
+     * This will update the state of each GameObject
+     * in the game.
+     *
+     * @param delta, the elapsed time since last loop.
+     */
+    public void updateLogic(float delta) {
+        for (GameObject object : objectList) {
+            object.update(this, delta);
+        }
+    }
+
+    /**
      * Java implementation of the observer pattern.
+     * Do not mix it with updateLogic which is called
+     * from the main game loop.
+     *
      * @param o, the observable with a new event
      * @param arg, an event.
      */
@@ -94,6 +114,31 @@ public class World implements Observer {
             }
         }
         return tiles;
+    }
+
+    /**
+     * Called during game logic, will add the GameObject in
+     * the objectList and tell the {@link Game} calling
+     * {@link Game#newObject(GameObject)}
+     *
+     * @param object, the new created object.
+     */
+    public void newObject(GameObject object) {
+        this.objectList.add(object);
+        game.newObject(object);
+    }
+
+
+    /**
+     * Called during game logic, will delete the GameObject from
+     * the objectList and tell the {@link Game} calling
+     * {@link Game#deleteObject(GameObject)}}
+     *
+     * @param object, the deleted object.
+     */
+    public void deleteObject(GameObject object) {
+        this.objectList.remove(object);
+        game.deleteObject(object);
     }
 
 }

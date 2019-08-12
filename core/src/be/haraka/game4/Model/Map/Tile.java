@@ -66,4 +66,13 @@ public class Tile extends GameObject {
      */
     public TileType getType() {return type;}
 
+    /**
+     * Update method, does nothing as a regular tile.
+     * @param delta, elapsed time since last loop
+     */
+    @Override
+    public void update(World world, float delta) {
+
+    }
+
 }

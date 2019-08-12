@@ -49,6 +49,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render () {
         float delta = Gdx.graphics.getDeltaTime();
+        this.world.updateLogic(delta);
         this.window.render(delta);
 	}
 

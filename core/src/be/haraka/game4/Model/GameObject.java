@@ -1,5 +1,7 @@
 package be.haraka.game4.Model;
 
+import be.haraka.game4.Model.Map.World;
+
 import java.util.Observable;
 
 public abstract class GameObject extends Observable {
@@ -14,6 +16,8 @@ public abstract class GameObject extends Observable {
         this.y = y;
         this.objectName = objectName;
     }
+
+    public abstract void update(World world, float delta);
 
 
 }
