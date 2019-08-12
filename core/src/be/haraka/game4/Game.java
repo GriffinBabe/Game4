@@ -1,5 +1,6 @@
 package be.haraka.game4;
 
+import be.haraka.game4.Controls.Controller;
 import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
@@ -34,6 +35,8 @@ public class Game extends ApplicationAdapter {
 		world = new World(this, MAP_PATH);
 
 		if (!serverMode) {
+            Controller controller = new Controller();
+            Gdx.input.setInputProcessor(controller);
             window = new Window();
             window.setTilesInstances(world);
         }

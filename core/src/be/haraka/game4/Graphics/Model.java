@@ -21,6 +21,12 @@ public class Model {
     private Texture texture;
     private int renderPriority ;
 
+    public Model(String name, int renderPriority) {
+        // Default constructor
+        this.name = name;
+        this.renderPriority = renderPriority;
+    }
+
     public Model(String name, String textureFile, int renderPriority) {
         this.name = name;
         this.renderPriority = renderPriority;
