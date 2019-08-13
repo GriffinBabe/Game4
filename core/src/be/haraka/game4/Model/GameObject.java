@@ -6,16 +6,51 @@ import java.util.Observable;
 
 public abstract class GameObject extends Observable {
 
-    public float x, y;
-    public Direction direction = Direction.VOID;
+    protected float x, y;
+    protected Direction direction = Direction.VOID;
 
     // Helpful to find which render do we need
-    public String objectName;
+    protected String objectName;
 
     public GameObject(float x, float y, String objectName) {
         this.x = x;
         this.y = y;
         this.objectName = objectName;
+    }
+
+    /**
+     * Changes the
+     * @param angle
+     */
+    public void changeDirection(float angle) {
+
+    }
+
+    /**
+     * Updates the position with the given dx and dy
+     * parameters.
+     *
+     * @param dx x axis increase/decrease
+     * @param dy y axis increase/decrease
+     */
+    public void move(float dx, float dy) {
+        x += dx;
+        y += dy;
+    }
+
+    /**
+     * X position setter.
+     */
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    /**
+     * Y Position setter.
+     * @param y
+     */
+    public void setY(float y) {
+        this.y = y;
     }
 
     /**
@@ -27,8 +62,42 @@ public abstract class GameObject extends Observable {
     public abstract void update(World world, float delta);
 
 
+    /**
+     * Returns the direction that the GameObject is facing.
+     * @return
+     */
     public Direction getDirection() {
         return direction;
+    }
+
+    /**
+     * Returns the X position of the GameObject.
+     * This value is kept private, as some object just
+     * 'follows' others. When the graphics ask for the position,
+     * the getter function will return the x value of the
+     * followed GameObject.
+     *
+     * Nevertheless, most of the GameObject have their own X,Y value.
+     *
+     * @return the X value of the GameObject.
+     */
+    public float x() {
+        return x;
+    }
+
+    /**
+     * Returns the X position of the GameObject.
+     * This value is kept private, as some object just
+     * 'follows' others. When the graphics ask for the position,
+     * the getter function will return the x value of the
+     * followed GameObject.
+     *
+     * Nevertheless, most of the GameObject have their own X,Y value.
+     *
+     * @return the Y value of the GameObject.
+     */
+    public float y() {
+        return y;
     }
 
     /**

@@ -26,6 +26,7 @@ public class ObjectInstance implements Observer {
     // Reference to the right Model.
     protected Model model;
 
+
     public ObjectInstance(GameObject object, Model model) {
         this.object = object;
         this.model = model;
@@ -46,13 +47,13 @@ public class ObjectInstance implements Observer {
      */
     public void render(float delta, SpriteBatch batch) {
         Texture texture = model.getTexture();
-        Vec2i batchPos = Translations.isoToScreen(object.x, object.y);
+        Vec2i batchPos = Translations.isoToScreen(object.x(), object.y());
         batch.draw(texture, batchPos.x, batchPos.y);
     }
 
-    public float getX() {return object.x;}
+    public float getX() {return object.x();}
 
-    public float getY() {return object.y;}
+    public float getY() {return object.y();}
 
     public int getRenderPriority() {return model.getRenderPriority();}
 

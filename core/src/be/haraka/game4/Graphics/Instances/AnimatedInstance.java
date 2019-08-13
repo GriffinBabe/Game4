@@ -37,7 +37,7 @@ public class AnimatedInstance extends ObjectInstance {
         // TODO: Add directions to animations
         TextureAtlas.AtlasRegion texture = ((AnimatedModel) model)
                 .getFrame(elapsedTime, '0');
-        Vec2i batchPos = Translations.isoToScreen(object.x, object.y);
+        Vec2i batchPos = Translations.isoToScreen(object.x(), object.y());
         batch.draw(texture, batchPos.x, batchPos.y);
 
     }

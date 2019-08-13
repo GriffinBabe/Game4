@@ -143,4 +143,23 @@ public class World implements Observer {
         game.deleteObject(object);
     }
 
+    /**
+     * Loads a list containing all the gameobject (including tiles
+     * stored in {@link #map} that are obstacles.
+     *
+     * @return the list with all obstacles.
+     */
+    public List<GameObject> getObstacles() {
+        List<GameObject> obstacles = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Tile tile = map[x][y];
+                if (!tile.walkable()) {
+                    obstacles.add(tile);
+                }
+            }
+        }
+        return obstacles;
+    }
+
 }
