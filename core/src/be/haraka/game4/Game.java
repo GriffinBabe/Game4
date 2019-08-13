@@ -4,8 +4,12 @@ import be.haraka.game4.Controls.Controller;
 import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
+import be.haraka.game4.Model.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main model class. Entry point from LIBGDX.
@@ -20,12 +24,13 @@ public class Game extends ApplicationAdapter {
 
     private static String MAP_PATH = "assets/map/map1.json";
 
-    private static float FPS_CAP = 60.0f;
-    private static float MS_PER_FRAME = 1.0f/FPS_CAP * 1000.0f;
 
     private World world;
-
+    private Controller controller = null;
     private Window window = null;
+
+    private List<Player> players = new ArrayList<>();
+    private Player localPlayer = null;
 
     /**
      * Called when the game is started.
@@ -35,10 +40,11 @@ public class Game extends ApplicationAdapter {
 		world = new World(this, MAP_PATH);
 
 		if (!serverMode) {
-            Controller controller = new Controller();
-            Gdx.input.setInputProcessor(controller);
+		    // TODO: Give local mob to player.
             window = new Window();
             window.setTilesInstances(world);
+            controller = new Controller(this, window, null);
+            Gdx.input.setInputProcessor(controller);
         }
 	}
 

@@ -1,9 +1,11 @@
 package be.haraka.game4.Model.Mob;
 
+import be.haraka.game4.Controls.Command;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
 import be.haraka.game4.Model.States.State;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,9 @@ public class Mob extends GameObject {
 
     // Not sure if this a good approach
     private List<State> equipmentState;
+
+    // List of commands that will be executed upon update
+    private List<Command> commandQueue = new ArrayList<>();
 
     // Mob statistics
     private float movementSpeed;
@@ -40,6 +45,13 @@ public class Mob extends GameObject {
 
     @Override
     public void update(World world, float delta) {
+
+        // Executes all the commands and empties the list.
+        for (Command command : commandQueue) {
+            executeCommand(command, world);
+        }
+        commandQueue.clear();
+
         // Mob behaviour, depends on the actionState
         State newState = actionState.updateState(delta, this, world);
 
@@ -49,13 +61,31 @@ public class Mob extends GameObject {
             actionState.exit(this, world);
             actionState = newState;
             actionState.enter(this,world);
+            notifyObservers(Event.CHANGED_STATE);
         }
+    }
+
+    private void executeCommand(Command command, World world) {
+        State newState = command.applyTo(actionState);
+
+        if (newState != null) {
+            actionState.exit(this, world);
+            actionState = newState;
+            actionState.enter(this, world);
+            notifyObservers(Event.CHANGED_STATE);
+        }
+    }
+
+    public void addCommand(Command command) {
+        this.commandQueue.add(command);
     }
 
     public float getMovementSpeed() {return movementSpeed;}
 
-    public String getStateName() {
-        return actionState.getStateName();
+    public State.StateType getStateType() {
+        return actionState.getStateType();
     }
+
+    public String getStateName() { return actionState.getStateType().stateName; }
 
 }

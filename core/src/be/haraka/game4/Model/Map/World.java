@@ -2,6 +2,7 @@ package be.haraka.game4.Model.Map;
 
 import be.haraka.game4.Game;
 import be.haraka.game4.Model.GameObject;
+import be.haraka.game4.Model.Mob.MobList;
 
 import java.util.*;
 
@@ -34,6 +35,8 @@ public class World implements Observer {
      * Contains all the GameObjects of the map except the tiles.
      */
     private List<GameObject> objectList = new ArrayList<>();
+
+    private MobList mobList;
 
     public World(Game game, String mapFile) {
         this.game = game;

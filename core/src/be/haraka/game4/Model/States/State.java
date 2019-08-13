@@ -1,6 +1,5 @@
 package be.haraka.game4.Model.States;
 
-import be.haraka.game4.Controls.Command;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
 
@@ -34,11 +33,19 @@ public interface State {
      */
     void exit(GameObject object, World world);
 
-    /**
-     * Handle the command called from inputs.
-     * @param command
-     */
-    State handleCommand(Command command);
+    StateType getStateType();
 
-    String getStateName();
+    enum StateType {
+
+        IDLE(0, "idle"),
+        WALK(1, "walk");
+
+        public int stateId;
+        public String stateName;
+
+        StateType(int stateId, String stateName) {
+            this.stateId = stateId;
+            this.stateName = stateName;
+        }
+    }
 }

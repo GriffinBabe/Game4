@@ -1,16 +1,15 @@
 package be.haraka.game4.Model.States;
 
-import be.haraka.game4.Controls.Command;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
 import be.haraka.game4.Model.Mob.Event;
 
 public class MobIdleState extends MobState {
 
-    private static String STATE_NAME = "idle";
+    private static StateType STATE_TYPE = StateType.IDLE;
 
     public MobIdleState() {
-        super(STATE_NAME);
+        super(STATE_TYPE);
     }
 
     @Override
@@ -29,13 +28,4 @@ public class MobIdleState extends MobState {
 
     }
 
-    @Override
-    public State handleCommand(Command command) {
-        return null;
-    }
-
-    @Override
-    public String getStateName() {
-        return name;
-    }
 }

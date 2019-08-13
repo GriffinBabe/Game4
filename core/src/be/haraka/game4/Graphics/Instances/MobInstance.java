@@ -43,7 +43,7 @@ public class MobInstance extends AnimatedInstance {
      * state's name, and direction.
      */
     private void updateModel() {
-        String animationName = ((Mob)object).objectName+"-"+((Mob)object).getStateName()+
+        String animationName = ((Mob)object).getName()+"-"+((Mob)object).getStateName()+
                 "-"+object.getDirection();
         changeAnimation(animationName);
     }

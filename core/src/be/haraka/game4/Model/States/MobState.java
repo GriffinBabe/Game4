@@ -3,13 +3,14 @@ package be.haraka.game4.Model.States;
 public abstract class MobState implements State {
 
     protected String name;
+    protected StateType type;
 
-    public MobState(String stateName) {
-        this.name = stateName;
+    public MobState(StateType type) {
+        this.type = type;
     }
 
     @Override
-    public String getStateName() {
-        return name;
+    public State.StateType getStateType() {
+        return type;
     }
 }

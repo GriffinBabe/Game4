@@ -1,6 +1,5 @@
 package be.haraka.game4.Model.States;
 
-import be.haraka.game4.Controls.Command;
 import be.haraka.game4.Math.Geo;
 import be.haraka.game4.Math.Vec2f;
 import be.haraka.game4.Model.GameObject;
@@ -9,6 +8,11 @@ import be.haraka.game4.Model.Mob.Mob;
 
 import java.util.List;
 
+
+/**
+ * Walk state, extends {@link MobState}, will
+ * update the position of the mob.
+ */
 public class MobWalkState extends MobState {
 
     /**
@@ -22,7 +26,7 @@ public class MobWalkState extends MobState {
      */
     private Vec2f destination;
 
-    private static String STATE_NAME = "walk";
+    private static StateType STATE_TYPE = StateType.WALK;
 
     /**
      * Flag that tracks if the path is valid or not.
@@ -33,7 +37,7 @@ public class MobWalkState extends MobState {
     private boolean pathFinished = false;
 
     public MobWalkState(Vec2f destination) {
-        super(STATE_NAME);
+        super(STATE_TYPE);
         this.destination = destination;
         computeSteps();
 
@@ -120,9 +124,14 @@ public class MobWalkState extends MobState {
 
     }
 
-    @Override
-    public State handleCommand(Command command) {
-        return null;
+    /**
+     * Changes the destination. Used by walk command, instead of
+     * creating a new MobWalkState (maybe we want to keep track
+     * on since how long we are walking etc)
+     *
+     * @param destination, the new destination.
+     */
+    public void changeDestination(Vec2f destination) {
+        this.destination = destination;
     }
-
 }

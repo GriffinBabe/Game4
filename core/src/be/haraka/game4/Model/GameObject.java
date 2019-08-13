@@ -100,6 +100,8 @@ public abstract class GameObject extends Observable {
         return y;
     }
 
+    public String getName() { return objectName; }
+
     /**
      * GameObject orientation, {@link GameObject} default's direction
      * is VOID, just like {@link be.haraka.game4.Model.Map.Tile}.

@@ -126,7 +126,7 @@ public class Window {
     public void setTilesInstances(World world) {
         List<Tile> tiles = world.gatherTiles();
         for (Tile tile : tiles) {
-            Model model = modelList.getModel(tile.objectName);
+            Model model = modelList.getModel(tile.getName());
             renderInstances.add(new ObjectInstance(tile, model));
         }
     }
