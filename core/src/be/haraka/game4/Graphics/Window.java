@@ -32,7 +32,6 @@ public class Window {
     private static int WIDTH = 1280;
     private static int HEIGHT = 720;
 
-    private static String modelsPath = "assets/models.json";
 
     // Our comparator for sorting the renderInstances
     private static RenderOrderComparator sorter = new RenderOrderComparator();
@@ -64,7 +63,7 @@ public class Window {
         batch = new SpriteBatch();
         camera = new Camera();
 
-        modelList = new ModelList(modelsPath);
+        modelList = new ModelList();
     }
 
     /**

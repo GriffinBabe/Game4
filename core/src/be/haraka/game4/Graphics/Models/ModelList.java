@@ -36,24 +36,25 @@ public class ModelList {
     private static String A_REPEAT = "repeat";
 
 
+    private static String MODELS_PATH = "assets/models.json";
+
+
     // The hashmap containing models corresponding to gameobject names.
     private HashMap<String, Model> modelList;
 
-    public ModelList(String jsonFile) {
-        init(jsonFile);
+    public ModelList() {
+        init();
     }
 
     /**
      * Starts the json parsing. Initializing the HashMap.
      * And proceed by calling {@link #parseTiles(JSONObject)}}.
-     * @param jsonPath, the path to the model linking json
-     *                  file.
      */
-    private void init(String jsonPath) {
+    private void init() {
         modelList = new HashMap<>();
         JSONParser parser = new JSONParser();
 
-        try (FileReader reader = new FileReader(jsonPath)) {
+        try (FileReader reader = new FileReader(MODELS_PATH)) {
             JSONObject document = (JSONObject) parser.parse(reader);
             parseTiles(document);
             parseAnimations(document);

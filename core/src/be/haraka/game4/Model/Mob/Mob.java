@@ -29,14 +29,14 @@ public class Mob extends GameObject {
     // Mob statistics
     private float movementSpeed;
 
-    private float maxHealth;
-    private float maxMana;
-    private float armor;
+    private int maxHealth;
+    private int maxMana;
+    private int armor;
 
     // TODO: Add more stats.
 
-    private float health;
-    private float mana;
+    private int health;
+    private int mana;
 
     public Mob(float x, float y, String objectName) {
         super(x,y, objectName);
@@ -63,6 +63,17 @@ public class Mob extends GameObject {
             actionState.enter(this,world);
             notifyObservers(Event.CHANGED_STATE);
         }
+    }
+
+    /**
+     * Sets the statistics of the Mob, like max-health,
+     *
+     */
+    public void setStats(int maxHealth, int maxMana, int armor, float speed) {
+        this.maxHealth = maxHealth;
+        this.maxMana = maxMana;
+        this.armor = armor;
+        this.movementSpeed = speed;
     }
 
     private void executeCommand(Command command, World world) {
