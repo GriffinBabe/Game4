@@ -1,7 +1,7 @@
 package be.haraka.game4.Graphics.Instances;
 
+import be.haraka.game4.Graphics.Models.AnimatedModel;
 import be.haraka.game4.Graphics.Models.ModelList;
-import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Model.Mob.Mob;
 
 import java.util.Observable;
@@ -19,17 +19,9 @@ import java.util.Observable;
  */
 public class MobInstance extends AnimatedInstance {
 
-    /**
-     * Reference to the {@link Window#modelList}
-     * as it is needed to gather new animations
-     * when the MobInstance get's notified.
-     *
-     */
-    public ModelList models;
-
-    public MobInstance(Mob mob, ModelList models) {
+    public MobInstance(Mob mob) {
         super(mob, null);
-        this.models = models;
+        updateModel();
     }
 
     @Override
@@ -43,8 +35,9 @@ public class MobInstance extends AnimatedInstance {
      * state's name, and direction.
      */
     private void updateModel() {
-        String animationName = ((Mob)object).getName()+"-"+((Mob)object).getStateName()+
-                "-"+object.getDirection();
-        changeAnimation(animationName);
+        String animationName = ((Mob)object).getName()+"-"+((Mob)object).getStateName()
+                + object.getDirection();
+        AnimatedModel model = (AnimatedModel) ModelList.getInstance().getModel(animationName);
+        changeAnimation(model);
     }
 }

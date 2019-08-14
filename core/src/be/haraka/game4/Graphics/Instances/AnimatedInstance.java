@@ -54,10 +54,10 @@ public class AnimatedInstance extends ObjectInstance {
     /**
      * Changes the AnimatedModel linked to this instance. Usually
      * called when a observer mob changes state.
-     * @param animationName
+     * @param animation
      */
-    protected void changeAnimation(String animationName) {
-        // TODO: Change the animation
+    protected void changeAnimation(AnimatedModel animation) {
+        this.model = animation;
         if (!(this.model instanceof AnimatedModel)) {
             throw new WrongModelType("New animation for AnimatedInstance must be an AnimatedModel.");
         }

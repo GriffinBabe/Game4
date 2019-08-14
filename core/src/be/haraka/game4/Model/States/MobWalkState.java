@@ -104,6 +104,8 @@ public class MobWalkState extends MobState {
         float dx = (float)(speed*Math.cos(angle));
         float dy = (float)(speed*Math.sin(angle));
 
+        mob.changeDirection(angle);
+
         // TODO: Check if collided, if finished the path.
         if (Geo.getDistance(new Vec2f(mob.x(), mob.y()), destination) <= speed) {
             mob.setX(destination.x);

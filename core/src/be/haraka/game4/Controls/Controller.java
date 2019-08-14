@@ -19,8 +19,10 @@ public class Controller implements InputProcessor {
 
     private Game game;
     private Player localPlayer;
+    private Window window;
 
     public Controller(Game game, Window window, Player localPlayer) {
+        this.window = window;
         this.game = game;
         this.localPlayer = localPlayer;
     }
@@ -79,14 +81,17 @@ public class Controller implements InputProcessor {
 
     private void moveLocalCharacter(int screenX, int screenY) {
         Vec2f position = Translations.screenToIso(screenX, screenY);
-        Command command = new MoveCommand(localPlayer.getCharacter(), position);
-        localPlayer.getCharacter().addCommand(command);
+        System.out.println(position.x+" "+position.y);
+        /*
+        Command command = new MoveCommand(localPlayer.getMob(), position);
+        localPlayer.getMob().addCommand(command);
         // TODO: Maybe there is a better solution, as this violate Demeter's law.
+        */
     }
 
     private void interruptLocalPlayer() {
         Command command = new InterruptCommand();
-        localPlayer.getCharacter().addCommand(command);
+        localPlayer.getMob().addCommand(command);
     }
 
 }

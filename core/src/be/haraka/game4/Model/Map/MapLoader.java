@@ -24,7 +24,7 @@ public class MapLoader {
     private static String TILEDATA = "data";
 
     // While parsing the JSON file, the order must be reversed.
-    private static boolean REVERSE_POSITION = true;
+    private static boolean REVERSE_POSITION = false;
 
     /**
      * Starts the JSON parser and sets the World's size.

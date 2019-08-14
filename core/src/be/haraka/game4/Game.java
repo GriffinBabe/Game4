@@ -3,7 +3,9 @@ package be.haraka.game4;
 import be.haraka.game4.Controls.Controller;
 import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Model.GameObject;
+import be.haraka.game4.Model.Map.MobSpawner;
 import be.haraka.game4.Model.Map.World;
+import be.haraka.game4.Model.Mob.Mob;
 import be.haraka.game4.Model.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -43,7 +45,20 @@ public class Game extends ApplicationAdapter {
 		    // TODO: Give local mob to player.
             window = new Window();
             window.setTilesInstances(world);
-            controller = new Controller(this, window, null);
+
+            MobSpawner spawner = new MobSpawner();
+            Mob human = spawner.spawnMob("mob-human");
+            human.setX(5); human.setY(5);
+            world.newObject(human);
+            localPlayer = new Player("GriffinBabe", human);
+            players.add(localPlayer);
+
+            Mob human2 = spawner.spawnMob("mob-human");
+            human2.setX(1);
+            human2.setY(1);
+            world.newObject(human2);
+
+            controller = new Controller(this, window, localPlayer);
             Gdx.input.setInputProcessor(controller);
         }
 	}

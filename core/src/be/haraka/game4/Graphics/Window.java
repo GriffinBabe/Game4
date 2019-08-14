@@ -1,12 +1,14 @@
 package be.haraka.game4.Graphics;
 
 import be.haraka.game4.Game;
+import be.haraka.game4.Graphics.Instances.MobInstance;
 import be.haraka.game4.Graphics.Instances.ObjectInstance;
 import be.haraka.game4.Graphics.Models.Model;
 import be.haraka.game4.Graphics.Models.ModelList;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.Tile;
 import be.haraka.game4.Model.Map.World;
+import be.haraka.game4.Model.Mob.Mob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,9 +41,6 @@ public class Window {
     // List containing all the objects instances to render
     private List<ObjectInstance> renderInstances = new ArrayList<>();
 
-    // Check ModelList doc.
-    private ModelList modelList = null;
-
 
     // Main batch used to render the map and the players.
     private SpriteBatch batch;
@@ -63,7 +62,8 @@ public class Window {
         batch = new SpriteBatch();
         camera = new Camera();
 
-        modelList = new ModelList();
+        // Initializes the modellist while loading the game, not during runtime.
+        ModelList.getInstance();
     }
 
     /**
@@ -102,6 +102,14 @@ public class Window {
      */
     public void newObject(GameObject o) {
         // TODO: Create new object instance
+        Model model = ModelList.getInstance().getModel(o.getName());
+        ObjectInstance instace;
+        if (o instanceof Mob) {
+            instace = new MobInstance((Mob)o);
+        } else {
+            instace = new ObjectInstance(o, model);
+        }
+        this.renderInstances.add(instace);
     }
 
     /**
@@ -125,7 +133,7 @@ public class Window {
     public void setTilesInstances(World world) {
         List<Tile> tiles = world.gatherTiles();
         for (Tile tile : tiles) {
-            Model model = modelList.getModel(tile.getName());
+            Model model = ModelList.getInstance().getModel(tile.getName());
             renderInstances.add(new ObjectInstance(tile, model));
         }
     }

@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class MobList {
 
-    private HashMap<String, Mob> mobList;
+    private static HashMap<String, Mob> mobList;
 
     private static String MOB_LIST = "mobs";
     private static String MOBS_NAME = "name";
@@ -31,7 +31,16 @@ public class MobList {
 
     private static String MOBS_PATH = "assets/mobs.json";
 
-    public MobList() {
+    private static MobList instance = null;
+
+    public static MobList getInstance() {
+        if (instance==null) {
+            instance = new MobList();
+        }
+        return instance;
+    }
+
+    private MobList() {
         init();
 
     }
@@ -64,10 +73,10 @@ public class MobList {
             JSONObject mobJSON = (JSONObject)mobs.get(i);
             String name = (String) mobJSON.get(MOBS_NAME);
             String objectName = (String) mobJSON.get(MOBS_ONAME);
-            int maxHealth = (int)(float)mobJSON.get(MOBS_HEALTH);
-            int maxMana = (int) (float) mobJSON.get(MOBS_MANA);
-            float speed = (float) mobJSON.get(MOBS_SPEED);
-            int armor = (int)(float)mobJSON.get(MOBS_ARMOR);
+            int maxHealth = (int)(long)mobJSON.get(MOBS_HEALTH);
+            int maxMana = (int) (long) mobJSON.get(MOBS_MANA);
+            float speed = (float)(double) mobJSON.get(MOBS_SPEED);
+            int armor = (int)(long)mobJSON.get(MOBS_ARMOR);
             Mob mob = new Mob(0,0, objectName);
             mob.setStats(maxHealth, maxMana, armor, speed);
             mobList.put(name, mob);

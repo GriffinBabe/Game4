@@ -36,10 +36,11 @@ public class World implements Observer {
      */
     private List<GameObject> objectList = new ArrayList<>();
 
-    private MobList mobList;
 
     public World(Game game, String mapFile) {
         this.game = game;
+
+        MobList.getInstance();
         MapLoader.LoadMap(mapFile, this);
     }
 

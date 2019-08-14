@@ -75,4 +75,9 @@ public class Tile extends GameObject {
 
     }
 
+    @Override
+    public GameObject clone() {
+        Tile nTile = new Tile((int)x, (int)y, type);
+        return nTile;
+    }
 }

@@ -23,7 +23,23 @@ public abstract class GameObject extends Observable {
      * @param angle
      */
     public void changeDirection(float angle) {
-
+        if (angle >= Math.PI * 15.0/8.0 && angle < Math.PI * 1.0/8.0) {
+            this.direction = Direction.E;
+        } else if (angle >= Math.PI * 1.0/8.0 && angle < Math.PI * 3.0/8.0) {
+            this.direction = Direction.NE;
+        } else if (angle >= Math.PI * 3.0/8.0 && angle < Math.PI * 5.0/8.0) {
+            this.direction = Direction.N;
+        } else if (angle >= Math.PI * 5.0/8.0 && angle < Math.PI * 7.0/8.0) {
+            this.direction = Direction.NW;
+        } else if (angle >= Math.PI * 7.0/8.0 && angle < Math.PI * 9.0/8.0) {
+            this.direction = Direction.W;
+        } else if (angle >= Math.PI * 9.0/8.0 && angle < Math.PI * 11.0/8.0) {
+            this.direction = Direction.SW;
+        } else if (angle >= Math.PI * 11.0/8.0 && angle < Math.PI * 13.0/8.0) {
+            this.direction = Direction.S;
+        } else if (angle >= Math.PI * 13.0/8.0 && angle < Math.PI * 15.0/8.0) {
+            this.direction= Direction.SE;
+        }
     }
 
     /**
@@ -101,6 +117,14 @@ public abstract class GameObject extends Observable {
     }
 
     public String getName() { return objectName; }
+
+
+    /**
+     * Clones this object, and returns it.
+     * Used for example by the mobspawner.
+     * @return a cloned instance of this one.
+     */
+    public abstract GameObject clone();
 
     /**
      * GameObject orientation, {@link GameObject} default's direction

@@ -39,10 +39,19 @@ public class ModelList {
     private static String MODELS_PATH = "assets/models.json";
 
 
-    // The hashmap containing models corresponding to gameobject names.
-    private HashMap<String, Model> modelList;
+    // The hashmap containing modelList corresponding to gameobject names.
+    private static HashMap<String, Model> modelList;
 
-    public ModelList() {
+    private static ModelList instance = null;
+
+    public static ModelList getInstance() {
+        if (instance == null) {
+            instance = new ModelList();
+        }
+        return instance;
+    }
+
+    private ModelList() {
         init();
     }
 
@@ -108,7 +117,7 @@ public class ModelList {
                     continue; // ignore void direction
                 String finalPath = path + dir.dirC + extension;
                 AnimatedModel model = new AnimatedModel(name, finalPath, priority, duration, repeat);
-                modelList.put(name, model);
+                modelList.put(name+dir.dirC, model);
             }
         }
     }
