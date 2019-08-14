@@ -4,6 +4,7 @@ import be.haraka.game4.Graphics.Instances.ObjectInstance;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Camera manager class. Will update the camera position,
@@ -103,5 +104,9 @@ public class Camera {
         if (camera.zoom >= MIN_ZOOM) {
             camera.zoom -= ZOOM_STEP;
         }
+    }
+
+    public void unproject(Vector3 screenPos) {
+        camera.unproject(screenPos);
     }
 }

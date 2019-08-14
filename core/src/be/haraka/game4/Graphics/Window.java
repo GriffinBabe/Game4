@@ -12,6 +12,7 @@ import be.haraka.game4.Model.Mob.Mob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,5 +148,9 @@ public class Window {
         // https://gamedev.stackexchange.com/questions/103442/
         // how-do-i-determine-the-draw-order-of-isometric-2d-objects-occupying-multiple-til
         Collections.sort(renderInstances, sorter);
+    }
+
+    public void unproject(Vector3 screenPos) {
+        camera.unproject(screenPos);
     }
 }

@@ -7,6 +7,7 @@ import be.haraka.game4.Math.Vec2f;
 import be.haraka.game4.Model.Player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Controller class, will read user key inputs
@@ -80,7 +81,9 @@ public class Controller implements InputProcessor {
     }
 
     private void moveLocalCharacter(int screenX, int screenY) {
-        Vec2f position = Translations.screenToIso(screenX, screenY);
+        Vector3 proj = new Vector3(screenX, screenY, 0);
+        window.unproject(proj);
+        Vec2f position = Translations.screenToIso((int)proj.x, (int)proj.y);
         System.out.println(position.x+" "+position.y);
         /*
         Command command = new MoveCommand(localPlayer.getMob(), position);
