@@ -1,6 +1,11 @@
 package be.haraka.game4.Graphics;
 
+import be.haraka.game4.Game;
 import be.haraka.game4.Graphics.Instances.ObjectInstance;
+import be.haraka.game4.Math.Translations;
+import be.haraka.game4.Math.Vec2f;
+import be.haraka.game4.Math.Vec2i;
+import be.haraka.game4.Model.Mob.Mob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -55,13 +60,15 @@ public class Camera {
      *
      * @param deltaTime, elapsed time since last loop.
      * @param batch, LibGDX batch used fot opengl as a render layer.
-     * @param localPlayer, local player gameobject istance.
      */
-    public void update(float deltaTime, SpriteBatch batch, ObjectInstance localPlayer) {
+    public void update(float deltaTime, SpriteBatch batch) {
         // Camera is programmed to follow the localPlayer when locked.
 
         if (locked) {
             // TODO: Something to follow the player around.
+            Mob mob = Game.LOCAL_PLAYER.getMob();
+            Vec2i position = Translations.isoToScreen(mob.x(), mob.y());
+            camera.position.set(position.toGdxVector2(), 0);
         } else {
             if (Gdx.input.getX() < EDGE_MARGIN & camera.position.x > MIN_X)
                 camera.translate(-CAM_SPEED*deltaTime,0,0);
@@ -106,6 +113,12 @@ public class Camera {
         }
     }
 
+    /**
+     * Libgdx feature to unproject the view from the camera.
+     * Used to get where we clicked.
+     *
+     * @param screenPos, click position on the screen, will be modified.
+     */
     public void unproject(Vector3 screenPos) {
         camera.unproject(screenPos);
     }

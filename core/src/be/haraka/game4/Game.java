@@ -22,17 +22,19 @@ import java.util.List;
 public class Game extends ApplicationAdapter {
 
     // Server mode disable all the graphics
-    public boolean serverMode = false;
+    public static boolean SERVER_MODE = false;
+
+    // Used by several classes, mostly graphical
+    public static int LOCAL_PLAYER_TEAM = 1;
+    public static Player LOCAL_PLAYER = null;
 
     private static String MAP_PATH = "assets/map/map1.json";
-
 
     private World world;
     private Controller controller = null;
     private Window window = null;
 
     private List<Player> players = new ArrayList<>();
-    private Player localPlayer = null;
 
     /**
      * Called when the game is started.
@@ -41,7 +43,7 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		world = new World(this, MAP_PATH);
 
-		if (!serverMode) {
+		if (!SERVER_MODE) {
 		    // TODO: Give local mob to player.
             window = new Window();
             window.setTilesInstances(world);
@@ -50,15 +52,15 @@ public class Game extends ApplicationAdapter {
             Mob human = spawner.spawnMob("mob-human");
             human.setX(5); human.setY(5);
             world.newObject(human);
-            localPlayer = new Player("GriffinBabe", human);
-            players.add(localPlayer);
+            LOCAL_PLAYER = new Player("GriffinBabe", human);
+            players.add(LOCAL_PLAYER);
 
             Mob human2 = spawner.spawnMob("mob-human");
             human2.setX(1);
             human2.setY(1);
             world.newObject(human2);
 
-            controller = new Controller(this, window, localPlayer);
+            controller = new Controller(this, window, LOCAL_PLAYER);
             Gdx.input.setInputProcessor(controller);
         }
 	}

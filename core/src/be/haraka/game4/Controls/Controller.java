@@ -34,10 +34,12 @@ public class Controller implements InputProcessor {
             case Keys.S:
                 interruptLocalPlayer();
                 return true;
+            case Keys.SPACE:
+                toggleCameraLock();
+                return true;
         }
         return false;
     }
-
 
     @Override
     public boolean keyUp(int keycode) {
@@ -106,6 +108,12 @@ public class Controller implements InputProcessor {
     private void interruptLocalPlayer() {
         Command command = new InterruptCommand();
         localPlayer.getMob().addCommand(command);
+    }
+
+
+
+    private void toggleCameraLock() {
+        window.toggleCameraLock();
     }
 
 }

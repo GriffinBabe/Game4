@@ -80,7 +80,7 @@ public class Window {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update(deltaTime, batch, null);
+        camera.update(deltaTime, batch);
 
         batch.begin();
 
@@ -172,5 +172,12 @@ public class Window {
      */
     public void zoomOut() {
         camera.zoomOut();
+    }
+
+    /**
+     * Calls {@link Camera#toggleLock()}.
+     */
+    public void toggleCameraLock() {
+        camera.toggleLock();
     }
 }

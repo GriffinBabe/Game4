@@ -110,4 +110,21 @@ public class Mob extends GameObject {
 
     public String getStateName() { return actionState.getStateType().stateName; }
 
+    public int getHealth() {return health;}
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public int getMana() {
+        return mana;
+    }
 }
