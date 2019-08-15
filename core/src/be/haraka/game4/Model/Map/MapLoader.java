@@ -81,6 +81,9 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 index = y * width + x;
                 int tileId = (int)(long)tileData.get(index);
+                // Important, as tiled shifts all the tiles one number up, to allow
+                // 0 numbers to be void tiles.
+                tileId--;
                 Tile tile = TileList.getInstance().getTile(tileId);
                 if (REVERSE_POSITION) {
                     tile.setX(height - y- 1);

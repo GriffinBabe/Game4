@@ -102,7 +102,7 @@ public class World implements Observer {
      */
     void setTile(int x, int y, Tile tile) {
         // Prevent that upper layers override downer layers with void tiles.
-        if (tile.getId()== 0 && map[x][y]!=null) {
+        if (tile.getId()== -1 && map[x][y]!=null) {
             return;
         }
         map[x][y] = tile;
