@@ -17,12 +17,14 @@ public class Geo {
     public static float getAngle(Vec2f p1, Vec2f p2) {
         float angle = (float) Math.atan((p2.y - p1.y)/(p2.x - p1.x));
         // p2 is behind p1
-        if (p1.x < p2.x) {
+        if (p1.x > p2.x) {
             angle += Math.PI;
         }
+        /*
         if (p1.y > p2.y) {
             angle = (float) (2* Math.PI - Math.abs(angle));
         }
+        */
         return angle;
         // P1 is behind p2
     }

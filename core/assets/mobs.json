@@ -5,7 +5,7 @@
       "objectName": "mob-human",
       "health": 150,
       "mana": 100,
-      "speed": 10.0,
+      "speed": 6.0,
       "armor": 5
     },
     {

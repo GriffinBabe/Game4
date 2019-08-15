@@ -75,21 +75,32 @@ public class Controller implements InputProcessor {
         return false;
     }
 
+    /**
+     * Reads the scroll from the mouse.
+     *
+     * @param amount, negative if scroll up, positive if
+     *                scroll down.
+     * @return if the input has been processed.
+     */
     @Override
     public boolean scrolled(int amount) {
+        if (amount < 0) {
+            window.zoomOut();
+            return true;
+        } else if (amount > 0) {
+            window.zoomIn();
+            return true;
+        }
         return false;
     }
 
     private void moveLocalCharacter(int screenX, int screenY) {
-        Vector3 proj = new Vector3(screenX, screenY, 0);
-        window.unproject(proj);
-        Vec2f position = Translations.screenToIso((int)proj.x, (int)proj.y);
-        System.out.println(position.x+" "+position.y);
-        /*
+        Vector3 projected = new Vector3(screenX, screenY, 0);
+        window.unproject(projected); // Unprojects with the camera zoom, position matrix.
+        Vec2f position = Translations.screenToIso((int)projected.x, (int)projected.y);
         Command command = new MoveCommand(localPlayer.getMob(), position);
         localPlayer.getMob().addCommand(command);
         // TODO: Maybe there is a better solution, as this violate Demeter's law.
-        */
     }
 
     private void interruptLocalPlayer() {

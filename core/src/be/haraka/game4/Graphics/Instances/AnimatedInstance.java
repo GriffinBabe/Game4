@@ -38,6 +38,8 @@ public class AnimatedInstance extends ObjectInstance {
         TextureAtlas.AtlasRegion texture = ((AnimatedModel) model)
                 .getFrame(elapsedTime, '0');
         Vec2i batchPos = Translations.isoToScreen(object.x(), object.y());
+        // Adapt as the position is always on the bottom left corner of the texture
+        batchPos.x -= texture.getRegionWidth()/2;
         batch.draw(texture, batchPos.x, batchPos.y);
 
     }

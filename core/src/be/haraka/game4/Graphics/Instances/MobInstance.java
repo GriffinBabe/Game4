@@ -2,6 +2,7 @@ package be.haraka.game4.Graphics.Instances;
 
 import be.haraka.game4.Graphics.Models.AnimatedModel;
 import be.haraka.game4.Graphics.Models.ModelList;
+import be.haraka.game4.Model.Mob.Event;
 import be.haraka.game4.Model.Mob.Mob;
 
 import java.util.Observable;
@@ -26,7 +27,14 @@ public class MobInstance extends AnimatedInstance {
 
     @Override
     public void update(Observable o, Object arg) {
-        // TODO: Check if the state has changed and change animation.
+        switch((Event) arg) {
+            case CHANGED_STATE:
+                updateModel();
+                break;
+            case CHANGED_DIRECTION:
+                updateModel();
+                break;
+        }
     }
 
     /**
@@ -36,7 +44,7 @@ public class MobInstance extends AnimatedInstance {
      */
     private void updateModel() {
         String animationName = ((Mob)object).getName()+"-"+((Mob)object).getStateName()
-                + object.getDirection();
+                + object.getDirection().dirC;
         AnimatedModel model = (AnimatedModel) ModelList.getInstance().getModel(animationName);
         changeAnimation(model);
     }

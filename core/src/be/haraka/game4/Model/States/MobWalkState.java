@@ -36,11 +36,14 @@ public class MobWalkState extends MobState {
     private boolean pathValid = true;
     private boolean pathFinished = false;
 
+    // Flag to track wherever the destination changed, so the angle changed.
+    // Will change the direction of the GameObject.
+    private boolean destinationChanged = false;
+
     public MobWalkState(Vec2f destination) {
         super(STATE_TYPE);
-        this.destination = destination;
+        changeDestination(destination);
         computeSteps();
-
     }
 
     /**
@@ -104,7 +107,11 @@ public class MobWalkState extends MobState {
         float dx = (float)(speed*Math.cos(angle));
         float dy = (float)(speed*Math.sin(angle));
 
-        mob.changeDirection(angle);
+        if (destinationChanged) {
+            mob.changeDirection(angle);
+            destinationChanged = false;
+            // TODO: Maybe later create a changeDestination function
+        }
 
         // TODO: Check if collided, if finished the path.
         if (Geo.getDistance(new Vec2f(mob.x(), mob.y()), destination) <= speed) {
@@ -135,5 +142,6 @@ public class MobWalkState extends MobState {
      */
     public void changeDestination(Vec2f destination) {
         this.destination = destination;
+        destinationChanged = true;
     }
 }

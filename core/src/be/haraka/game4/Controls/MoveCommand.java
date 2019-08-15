@@ -16,7 +16,6 @@ public class MoveCommand extends Command {
         super(COMMAND_TYPE);
         this.mob = mob;
         this.destination = dest;
-        mob.addCommand(this);
     }
 
     @Override

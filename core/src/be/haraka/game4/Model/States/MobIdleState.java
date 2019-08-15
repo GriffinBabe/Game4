@@ -2,7 +2,6 @@ package be.haraka.game4.Model.States;
 
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
-import be.haraka.game4.Model.Mob.Event;
 
 public class MobIdleState extends MobState {
 
@@ -19,8 +18,6 @@ public class MobIdleState extends MobState {
 
     @Override
     public void enter(GameObject object, World world) {
-        Object arguments[] = {Event.CHANGED_STATE, this};
-        object.notifyObservers(arguments);
     }
 
     @Override

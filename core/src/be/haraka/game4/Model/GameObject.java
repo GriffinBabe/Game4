@@ -1,10 +1,9 @@
 package be.haraka.game4.Model;
 
 import be.haraka.game4.Model.Map.World;
+import be.haraka.game4.Model.Mob.Event;
 
-import java.util.Observable;
-
-public abstract class GameObject extends Observable {
+public abstract class GameObject extends WorkingObservable {
 
     protected float x, y;
     protected Direction direction = Direction.VOID;
@@ -23,23 +22,24 @@ public abstract class GameObject extends Observable {
      * @param angle
      */
     public void changeDirection(float angle) {
-        if (angle >= Math.PI * 15.0/8.0 && angle < Math.PI * 1.0/8.0) {
-            this.direction = Direction.E;
-        } else if (angle >= Math.PI * 1.0/8.0 && angle < Math.PI * 3.0/8.0) {
-            this.direction = Direction.NE;
-        } else if (angle >= Math.PI * 3.0/8.0 && angle < Math.PI * 5.0/8.0) {
+        if (angle >= Math.PI * -1.0/8.0 && angle < Math.PI * 1.0/8.0) {
             this.direction = Direction.N;
-        } else if (angle >= Math.PI * 5.0/8.0 && angle < Math.PI * 7.0/8.0) {
+        } else if (angle >= Math.PI * 1.0/8.0 && angle < Math.PI * 3.0/8.0) {
             this.direction = Direction.NW;
-        } else if (angle >= Math.PI * 7.0/8.0 && angle < Math.PI * 9.0/8.0) {
+        } else if (angle >= Math.PI * 3.0/8.0 && angle < Math.PI * 5.0/8.0) {
             this.direction = Direction.W;
-        } else if (angle >= Math.PI * 9.0/8.0 && angle < Math.PI * 11.0/8.0) {
+        } else if (angle >= Math.PI * 5.0/8.0 && angle < Math.PI * 7.0/8.0) {
             this.direction = Direction.SW;
-        } else if (angle >= Math.PI * 11.0/8.0 && angle < Math.PI * 13.0/8.0) {
+        } else if (angle >= Math.PI * 7.0/8.0 && angle < Math.PI * 9.0/8.0) {
             this.direction = Direction.S;
-        } else if (angle >= Math.PI * 13.0/8.0 && angle < Math.PI * 15.0/8.0) {
-            this.direction= Direction.SE;
+        } else if (angle >= Math.PI * 9.0/8.0 && angle < Math.PI * 11.0/8.0) {
+            this.direction = Direction.SE;
+        } else if (angle >= Math.PI * 11.0/8.0 && angle < Math.PI * 13.0/8.0) {
+            this.direction = Direction.E;
+        } else if (angle >= Math.PI * -3.0/8.0 && angle < Math.PI * -1.0/8.0) {
+            this.direction= Direction.NE;
         }
+        this.notifyObservers(Event.CHANGED_DIRECTION);
     }
 
     /**

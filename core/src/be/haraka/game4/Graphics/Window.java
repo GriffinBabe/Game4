@@ -150,7 +150,27 @@ public class Window {
         Collections.sort(renderInstances, sorter);
     }
 
+    /**
+     * Libgdx feature to unproject the view from the camera.
+     * Used to get where we clicked.
+     *
+     * @param screenPos, click position on the screen, will be modified.
+     */
     public void unproject(Vector3 screenPos) {
         camera.unproject(screenPos);
+    }
+
+    /**
+     * Calls {@link Camera#zoomIn()}.
+     */
+    public void zoomIn() {
+        camera.zoomIn();
+    }
+
+    /**
+     * Calls {@link Camera#zoomOut()}.
+     */
+    public void zoomOut() {
+        camera.zoomOut();
     }
 }
