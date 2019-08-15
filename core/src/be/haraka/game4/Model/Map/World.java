@@ -41,6 +41,7 @@ public class World implements Observer {
         this.game = game;
 
         MobList.getInstance();
+        TileList.getInstance();
         MapLoader.LoadMap(mapFile, this);
     }
 
@@ -101,7 +102,7 @@ public class World implements Observer {
      */
     void setTile(int x, int y, Tile tile) {
         // Prevent that upper layers override downer layers with void tiles.
-        if (tile.getType()== TileType.VOID && map[x][y]!=null) {
+        if (tile.getId()== 0 && map[x][y]!=null) {
             return;
         }
         map[x][y] = tile;
@@ -158,7 +159,7 @@ public class World implements Observer {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Tile tile = map[x][y];
-                if (!tile.walkable()) {
+                if (!tile.isWalkable()) {
                     obstacles.add(tile);
                 }
             }

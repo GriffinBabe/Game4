@@ -6,23 +6,26 @@ import be.haraka.game4.Model.GameObject;
  * Tile class. The tile position are an integer value but the
  * tile still extends the GameObject for rendering purposes.
  *
- * The Tile properties directly come from the Enum attribute {@link #type}.
- * The properties will be hardcoded for the moment.
- *
  * @author GriffinBabe
  */
 public class Tile extends GameObject {
 
+    private static String TILE_NAME = "tile";
+
     // Ranges from 0 to 1.0 modifies the movement speed on it
     private float speedModifier = 1.0f;
 
-    // TileType, all the properties of the tile come from that.
-    private TileType type;
+    // TileID, used mainly for rendering
+    private int id;
+
+    private boolean walkable = true;
 
     // Tile is a GameObject but position is an integer
-    public Tile(int x, int y, TileType type) {
-        super(x,y, type.objectName);
-        this.type = type;
+    public Tile(int x, int y, int id, boolean walkable, float speedModifier) {
+        super(x,y, TILE_NAME+"-"+id);
+        this.id = id;
+        this.speedModifier = speedModifier;
+        this.walkable = walkable;
     }
 
     /**
@@ -35,21 +38,12 @@ public class Tile extends GameObject {
     }
 
     /**
-     * Tells if the tile si walkable or not, looking directly
-     * at the {@link #type}.
+     * Tells if the tile si isWalkable or not.
      *
      * @return boolean value.
      */
-    public boolean walkable() {
-        switch (type) {
-            case GRASS:
-                return true;
-            case WALL:
-                return false;
-            case WATER:
-                return false;
-        }
-        return false;
+    public boolean isWalkable() {
+        return walkable;
     }
 
     /**
@@ -59,12 +53,6 @@ public class Tile extends GameObject {
      * @return float value ranging from 0.0 to 1.0
      */
     public float getSpeedModifier() {return speedModifier;}
-
-    /**
-     * Returns the tile {@link TileType}.
-     * @return
-     */
-    public TileType getType() {return type;}
 
     /**
      * Update method, does nothing as a regular tile.
@@ -77,7 +65,16 @@ public class Tile extends GameObject {
 
     @Override
     public GameObject clone() {
-        Tile nTile = new Tile((int)x, (int)y, type);
+        Tile nTile = new Tile((int)x, (int)y, this.id, this.walkable, this.speedModifier);
         return nTile;
+    }
+
+
+    /**
+     * Get's the tile ID, mainly used by the Graphics.
+     * @return the tile ID.
+     */
+    public int getId() {
+        return id;
     }
 }

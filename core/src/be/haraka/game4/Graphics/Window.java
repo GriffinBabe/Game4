@@ -134,7 +134,11 @@ public class Window {
     public void setTilesInstances(World world) {
         List<Tile> tiles = world.gatherTiles();
         for (Tile tile : tiles) {
-            Model model = ModelList.getInstance().getModel(tile.getName());
+            if (tile.getId()==-1) {
+                continue;
+            }
+            Model model = ModelList.getInstance().getModel(
+                    ModelList.TILE_NAME+"-"+tile.getId());
             renderInstances.add(new ObjectInstance(tile, model));
         }
     }

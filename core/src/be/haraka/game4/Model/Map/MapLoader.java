@@ -80,11 +80,16 @@ public class MapLoader {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 index = y * width + x;
-                TileType type = TileType.getById((int) (long) tileData.get(index));
+                int tileId = (int)(long)tileData.get(index);
+                Tile tile = TileList.getInstance().getTile(tileId);
                 if (REVERSE_POSITION) {
-                    world.setTile(width-x-1, height-y-1, new Tile(width-x-1, height-y-1, type));
+                    tile.setX(height - y- 1);
+                    tile.setY(width- x - 1);
+                    world.setTile(height -y - 1, width - x -1, tile);
                 } else {
-                    world.setTile(x, y, new Tile(x, y, type));
+                    tile.setY(x);
+                    tile.setY(y);
+                    world.setTile(x, y, tile);
                 }
             }
         }

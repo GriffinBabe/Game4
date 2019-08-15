@@ -23,7 +23,8 @@ public class ModelList {
 
     // JSON parsing key names, constants
     private static String TILE_LIST = "tiles";
-    private static String TILE_NAME = "name";
+    public static String TILE_NAME = "tile";
+    private static String TILE_ID = "id";
     private static String TILE_PRIORITY = "priority";
     private static String TILE_PATH = "path";
 
@@ -85,7 +86,7 @@ public class ModelList {
         for (int i = 0; i < tiles.size(); i++) {
             // For each tile in the json document, loads the values
             JSONObject tile = (JSONObject)tiles.get(i);
-            String name = (String) tile.get(TILE_NAME);
+            String name = TILE_NAME+"-"+(int)(long)tile.get(TILE_ID);
             int priority = (int)(long) tile.get(TILE_PRIORITY);
             String path = (String) tile.get(TILE_PATH);
 
