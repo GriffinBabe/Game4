@@ -11,13 +11,31 @@ import be.haraka.game4.Model.GameObject;
  */
 public abstract class Item extends GameObject {
 
-    public Item(String objectName) {
+    public Rarity rarity;
+
+    public Item(String objectName, Rarity rarity) {
         super(0.0f, 0.0f, objectName);
+        this.rarity = rarity;
     }
 
-    public Item(float x, float y, String objectName) {
+    public Item(float x, float y, String objectName, Rarity rarity) {
         super(x,y, objectName);
+        this.rarity = rarity;
     }
 
-    public abstract void act();
+    public abstract void act(GameObject object);
+
+    public enum Rarity {
+        COMMON(0),
+        UNCOMMON(1),
+        RARE(2),
+        EPIC(3),
+        UNIQUE(4);
+
+        public int id;
+
+        Rarity(int id) {
+            this.id = id;
+        }
+    }
 }

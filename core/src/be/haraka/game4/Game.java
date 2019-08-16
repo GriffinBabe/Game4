@@ -50,7 +50,7 @@ public class Game extends ApplicationAdapter {
 
             MobSpawner spawner = new MobSpawner();
             Mob human = spawner.spawnMob("mob-human");
-            human.setX(5); human.setY(5);
+            human.setX(10); human.setY(10);
             world.newObject(human);
             LOCAL_PLAYER = new Player("GriffinBabe", human);
             players.add(LOCAL_PLAYER);

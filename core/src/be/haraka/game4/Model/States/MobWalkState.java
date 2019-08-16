@@ -81,7 +81,7 @@ public class MobWalkState extends MobState {
         // TODO: Entire path completion, not only a single line.
         checkPathValidity();
         if (pathValid && !pathFinished) {
-            walk(((Mob) object), delta);
+            walk(((Mob) object),world, delta);
             if (pathFinished) {
                 return new MobIdleState();
             }
@@ -100,9 +100,11 @@ public class MobWalkState extends MobState {
      * @param mob
      * @param delta
      */
-    private void walk(Mob mob, float delta) {
+    private void walk(Mob mob, World world, float delta) {
         float angle = Geo.getAngle(new Vec2f(mob.x(), mob.y()), destination);
-        float speed = mob.getMovementSpeed() * delta;
+        float tileSpeed = world.speedAt((int)mob.x(), (int)mob.y());
+        float speed = mob.getMovementSpeed() * delta * tileSpeed;
+
 
         float dx = (float)(speed*Math.cos(angle));
         float dy = (float)(speed*Math.sin(angle));

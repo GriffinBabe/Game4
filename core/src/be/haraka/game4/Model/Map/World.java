@@ -167,4 +167,12 @@ public class World implements Observer {
         return obstacles;
     }
 
+    public float speedAt(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            Tile t = map[x][y];
+            return t.getSpeedModifier();
+        }
+        return 1.0f;
+    }
+
 }
