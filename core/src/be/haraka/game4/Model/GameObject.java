@@ -18,27 +18,11 @@ public abstract class GameObject extends WorkingObservable {
     }
 
     /**
-     * Changes the
-     * @param angle
+     * Changes the direction
+     * @param direction, the new direction the GameObject is facing
      */
-    public void changeDirection(float angle) {
-        if (angle >= Math.PI * -1.0/8.0 && angle < Math.PI * 1.0/8.0) {
-            this.direction = Direction.N;
-        } else if (angle >= Math.PI * 1.0/8.0 && angle < Math.PI * 3.0/8.0) {
-            this.direction = Direction.NW;
-        } else if (angle >= Math.PI * 3.0/8.0 && angle < Math.PI * 5.0/8.0) {
-            this.direction = Direction.W;
-        } else if (angle >= Math.PI * 5.0/8.0 && angle < Math.PI * 7.0/8.0) {
-            this.direction = Direction.SW;
-        } else if (angle >= Math.PI * 7.0/8.0 && angle < Math.PI * 9.0/8.0) {
-            this.direction = Direction.S;
-        } else if (angle >= Math.PI * 9.0/8.0 && angle < Math.PI * 11.0/8.0) {
-            this.direction = Direction.SE;
-        } else if (angle >= Math.PI * 11.0/8.0 && angle < Math.PI * 13.0/8.0) {
-            this.direction = Direction.E;
-        } else if (angle >= Math.PI * -3.0/8.0 && angle < Math.PI * -1.0/8.0) {
-            this.direction= Direction.NE;
-        }
+    public void changeDirection(Direction direction) {
+        this.direction = direction;
         this.notifyObservers(Event.CHANGED_DIRECTION);
     }
 
@@ -136,13 +120,9 @@ public abstract class GameObject extends WorkingObservable {
 
         VOID(0,'V'),
         N(1,'N'),
-        NE(2,'A'),
         E(3,'E'),
-        SE(4,'B'),
         S(5,'S'),
-        SW(6,'C'),
-        W(7,'W'),
-        NW(8,'D');
+        W(7,'W');
 
         public int dirID;
         public char dirC;

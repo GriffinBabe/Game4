@@ -27,6 +27,8 @@ public class MobList {
     private static String MOBS_MANA = "mana";
     private static String MOBS_SPEED = "speed";
     private static String MOBS_ARMOR = "armor";
+    private static String MOBS_ACCELERATION = "acceleration";
+    private static String MOBS_SIZE = "size";
 
 
     private static String MOBS_PATH = "assets/mobs.json";
@@ -77,8 +79,10 @@ public class MobList {
             int maxMana = (int) (long) mobJSON.get(MOBS_MANA);
             float speed = (float)(double) mobJSON.get(MOBS_SPEED);
             int armor = (int)(long)mobJSON.get(MOBS_ARMOR);
-            Mob mob = new Mob(0,0, objectName);
-            mob.setStats(maxHealth, maxMana, armor, speed);
+            float size = (float) (double) mobJSON.get(MOBS_SIZE);
+            float acceleration = (float) (double) mobJSON.get(MOBS_ACCELERATION);
+            Mob mob = new Mob(0,0, size, size, objectName);
+            mob.setStats(maxHealth, maxMana, armor, speed, acceleration);
             mobList.put(name, mob);
         }
     }

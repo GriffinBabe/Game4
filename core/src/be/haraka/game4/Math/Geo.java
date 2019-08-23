@@ -1,5 +1,7 @@
 package be.haraka.game4.Math;
 
+import be.haraka.game4.Model.Mob.SolidObject;
+
 /**
  * Game Geometry util class
  */
@@ -38,5 +40,15 @@ public class Geo {
     public static float getDistance(Vec2f p1, Vec2f p2) {
         return (float) Math.sqrt(Math.pow(p2.x - p1.x, 2)
                 + Math.pow(p2.y - p1.y, 2));
+    }
+
+    public static boolean isColliding(SolidObject obj1, SolidObject obj2) {
+        if (obj1.x() + obj1.getWidth()/2 > obj2.x() - obj2.getWidth()/2 &&
+            obj1.x() - obj1.getWidth()/2 < obj2.x() + obj2.getWidth()/2 &&
+            obj1.y() - obj1.getHeight()/2 > obj2.y() + obj2.getHeight()/2 &&
+            obj1.y() + obj1.getHeight()/2 < obj2.y() - obj2.getHeight()/2) {
+            return true;
+        }
+        return false;
     }
 }

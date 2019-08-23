@@ -1,6 +1,7 @@
 package be.haraka.game4.Model.Map;
 
 import be.haraka.game4.Model.GameObject;
+import be.haraka.game4.Model.Mob.SolidObject;
 
 /**
  * Tile class. The tile position are an integer value but the
@@ -8,9 +9,12 @@ import be.haraka.game4.Model.GameObject;
  *
  * @author GriffinBabe
  */
-public class Tile extends GameObject {
+public class Tile extends SolidObject {
 
     private static String TILE_NAME = "tile";
+
+    private static float TILE_DIMENSIONS = 1.0f;
+
 
     // Ranges from 0 to 1.0 modifies the movement speed on it
     private float speedModifier = 1.0f;
@@ -22,7 +26,7 @@ public class Tile extends GameObject {
 
     // Tile is a GameObject but position is an integer
     public Tile(int x, int y, int id, boolean walkable, float speedModifier) {
-        super(x,y, TILE_NAME+"-"+id);
+        super(x,y,TILE_DIMENSIONS,TILE_DIMENSIONS,TILE_NAME+"-"+id);
         this.id = id;
         this.speedModifier = speedModifier;
         this.walkable = walkable;

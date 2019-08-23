@@ -1,12 +1,9 @@
 package be.haraka.game4.Model.States;
 
-import be.haraka.game4.Math.Geo;
-import be.haraka.game4.Math.Vec2f;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
 import be.haraka.game4.Model.Mob.Mob;
-
-import java.util.List;
+import be.haraka.game4.Model.Mob.SolidObject;
 
 
 /**
@@ -15,56 +12,17 @@ import java.util.List;
  */
 public class MobWalkState extends MobState {
 
-    /**
-     * The steps we need to do to walk.
-     * List containing points of our path.
-     */
-    private List<Vec2f> steps;
-
-    /**
-     * Destination (basically where the player "clicked").
-     */
-    private Vec2f destination;
+    private GameObject.Direction direction;
+    private float speed = 0.0f;
 
     private static StateType STATE_TYPE = StateType.WALK;
 
-    /**
-     * Flag that tracks if the path is valid or not.
-     *
-     * If not, the state will exit.
-     */
-    private boolean pathValid = true;
-    private boolean pathFinished = false;
-
-    // Flag to track wherever the destination changed, so the angle changed.
-    // Will change the direction of the GameObject.
-    private boolean destinationChanged = false;
-
-    public MobWalkState(Vec2f destination) {
+    public MobWalkState(GameObject.Direction direction) {
         super(STATE_TYPE);
-        changeDestination(destination);
-        computeSteps();
+        this.direction = direction;
+
     }
 
-    /**
-     * Computes the optimal path with dijkstra's algorithm.
-     * If not valid path has been found, it changes the flag
-     * {@link #pathValid} to false.
-     */
-    private void computeSteps() {
-        // TODO: Compute the path to destination.
-        pathValid = true;
-    }
-
-    /**
-     * Checks if the previously computed path is still valid.
-     *
-     * If not, it changes the flag {@link #pathValid} to false.
-     */
-    private void checkPathValidity() {
-        // TODO: Check whole path validity
-        pathValid = true;
-    }
 
     /**
      * Checks if the path is valid and unfinished, if yes, walks and
@@ -79,14 +37,12 @@ public class MobWalkState extends MobState {
     @Override
     public State updateState(float delta, GameObject object, World world) {
         // TODO: Entire path completion, not only a single line.
-        checkPathValidity();
-        if (pathValid && !pathFinished) {
-            walk(((Mob) object),world, delta);
-            if (pathFinished) {
-                return new MobIdleState();
-            }
-        }
-        else {
+        float oldX = object.x();
+        float oldY = object.y();
+        walk((Mob) object, world, delta);
+        if (world.isColliding((SolidObject)object) != null) {
+            object.setX(oldX);
+            object.setY(oldY);
             return new MobIdleState();
         }
         return null;
@@ -101,27 +57,29 @@ public class MobWalkState extends MobState {
      * @param delta
      */
     private void walk(Mob mob, World world, float delta) {
-        float angle = Geo.getAngle(new Vec2f(mob.x(), mob.y()), destination);
         float tileSpeed = world.speedAt((int)mob.x(), (int)mob.y());
-        float speed = mob.getMovementSpeed() * delta * tileSpeed;
+        float tempMaxSpeed = tileSpeed * mob.getMaxMovementSpeed();
+        float acceleration = mob.getAcceleration();
 
-
-        float dx = (float)(speed*Math.cos(angle));
-        float dy = (float)(speed*Math.sin(angle));
-
-        if (destinationChanged) {
-            mob.changeDirection(angle);
-            destinationChanged = false;
-            // TODO: Maybe later create a changeDestination function
+        if (speed + acceleration >= tempMaxSpeed) {
+            speed = tempMaxSpeed;
+        } else {
+            speed += acceleration;
         }
 
-        // TODO: Check if collided, if finished the path.
-        if (Geo.getDistance(new Vec2f(mob.x(), mob.y()), destination) <= speed) {
-            mob.setX(destination.x);
-            mob.setY(destination.y);
-            pathFinished = true;
-        } else {
-            mob.move(dx, dy);
+        switch (direction) {
+            case N:
+                mob.move(0,speed);
+                break;
+            case S:
+                mob.move(0, -speed);
+                break;
+            case E:
+                mob.move(speed, 0);
+                break;
+            case W:
+                mob.move(-speed, 0);
+                break;
         }
     }
 
@@ -135,15 +93,4 @@ public class MobWalkState extends MobState {
 
     }
 
-    /**
-     * Changes the destination. Used by walk command, instead of
-     * creating a new MobWalkState (maybe we want to keep track
-     * on since how long we are walking etc)
-     *
-     * @param destination, the new destination.
-     */
-    public void changeDestination(Vec2f destination) {
-        this.destination = destination;
-        destinationChanged = true;
-    }
 }

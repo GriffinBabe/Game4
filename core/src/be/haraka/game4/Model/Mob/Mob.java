@@ -17,12 +17,13 @@ import java.util.List;
  *
  * @author GriffinBabe
  */
-public class Mob extends GameObject {
+public class Mob extends SolidObject {
 
     public static String MAX_MANA = "max-mana";
     public static String MAX_HEALTH = "max-health";
     public static String ARMOR = "armor";
     public static String SPEED = "speed";
+    public static String ACCELERATION = "acceleration";
 
     private static Direction DEFAULT_DIRECTION = Direction.S;
     private static State DEFAULT_ACTION_STATE = new MobIdleState();
@@ -48,8 +49,8 @@ public class Mob extends GameObject {
     private int health;
     private int mana;
 
-    public Mob(float x, float y, String objectName) {
-        super(x,y, objectName);
+    public Mob(float x, float y, float width, float height, String objectName) {
+        super(x,y, width, height, objectName);
         direction = DEFAULT_DIRECTION;
         actionState = DEFAULT_ACTION_STATE;
     }
@@ -147,11 +148,12 @@ public class Mob extends GameObject {
     /**
      * Sets the statistics of the Mob, like max-health.
      */
-    public void setStats(int maxHealth, int maxMana, int armor, float speed) {
+    public void setStats(int maxHealth, int maxMana, int armor, float speed, float acceleration) {
         statList.put(MAX_HEALTH, new Stat(maxHealth, Stat.StatType.INTEGER_ROUND));
         statList.put(MAX_MANA, new Stat(maxMana, Stat.StatType.INTEGER_ROUND));
         statList.put(ARMOR, new Stat(armor, Stat.StatType.INTEGER_ROUND));
         statList.put(SPEED, new Stat(speed, Stat.StatType.FLOAT));
+        statList.put(ACCELERATION, new Stat(acceleration, Stat.StatType.FLOAT));
     }
 
     /**
@@ -170,13 +172,13 @@ public class Mob extends GameObject {
      */
     @Override
     public GameObject clone() {
-        Mob nMob = new Mob(x,y,objectName);
+        Mob nMob = new Mob(x,y,width,height,objectName);
         nMob.statList = this.statList;
         nMob.equipments = this.equipments;
         return nMob;
     }
 
-    public float getMovementSpeed() {return statList.get(SPEED).value();}
+    public float getMaxMovementSpeed() {return statList.get(SPEED).value();}
 
     public String getStateName() { return actionState.getStateType().stateName; }
 
@@ -198,4 +200,7 @@ public class Mob extends GameObject {
         return (int)statList.get(ARMOR).value();
     }
 
+    public float getAcceleration() {
+        return (float) statList.get(ACCELERATION).value();
+    }
 }

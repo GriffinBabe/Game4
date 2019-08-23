@@ -1,8 +1,10 @@
 package be.haraka.game4.Model.Map;
 
 import be.haraka.game4.Game;
+import be.haraka.game4.Math.Geo;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Mob.MobList;
+import be.haraka.game4.Model.Mob.SolidObject;
 
 import java.util.*;
 
@@ -175,4 +177,22 @@ public class World implements Observer {
         return 1.0f;
     }
 
+    /**
+     * Iterates over all the gameobejects and checks if
+     * they are colliding with the given Gameobject.
+     *
+     * @param object, the object we want to check if it is colliding on.
+     * @return It will return the GameObject that is colliding with, or
+     *         null if there is no collision.
+     */
+    public GameObject isColliding(SolidObject object) {
+        for (GameObject o : objectList) {
+            if (o instanceof SolidObject && o != object) {
+                if (Geo.isColliding(object, (SolidObject)o)) {
+                    return object;
+                }
+            }
+        }
+        return null;
+    }
 }

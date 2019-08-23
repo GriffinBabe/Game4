@@ -6,7 +6,9 @@
       "health": 150,
       "mana": 100,
       "speed": 4.0,
-      "armor": 5
+      "armor": 5,
+      "size": 1,
+      "acceleration": 0.5
     },
     {
       "name": "mob-zombie",
@@ -14,7 +16,9 @@
       "health": 40,
       "mana": 0,
       "speed": 5.0,
-      "armor": 5
+      "armor": 5,
+      "size": 1,
+      "acceleration": 0.5
     },
     {
       "name": "mob-fastzombie",
@@ -22,7 +26,9 @@
       "health": 40,
       "mana": 0,
       "speed": 10.0,
-      "armor": 5
+      "armor": 5,
+      "size": 1,
+      "acceleration": 0.5
     },
     {
       "name": "mob-tankzombie",
