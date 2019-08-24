@@ -4,6 +4,7 @@ import be.haraka.game4.Game;
 import be.haraka.game4.Graphics.Window;
 import be.haraka.game4.Math.Translations;
 import be.haraka.game4.Math.Vec2f;
+import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -31,6 +32,18 @@ public class Controller implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
+            case Keys.UP:
+                moveLocalPlayer(GameObject.Direction.N);
+                break;
+            case Keys.DOWN:
+                moveLocalPlayer(GameObject.Direction.S);
+                break;
+            case Keys.LEFT:
+                moveLocalPlayer(GameObject.Direction.E);
+                break;
+            case Keys.RIGHT:
+                moveLocalPlayer(GameObject.Direction.W);
+                break;
             case Keys.S:
                 interruptLocalPlayer();
                 return true;
@@ -43,7 +56,20 @@ public class Controller implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-
+        switch (keycode) {
+            case Keys.UP:
+                interruptLocalPlayer();
+                break;
+            case Keys.DOWN:
+                interruptLocalPlayer();
+                break;
+            case Keys.LEFT:
+                interruptLocalPlayer();
+                break;
+            case Keys.RIGHT:
+                interruptLocalPlayer();
+                break;
+        }
         return false;
     }
 
@@ -56,7 +82,7 @@ public class Controller implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         switch (button) {
             case 1: // Left-click
-                moveLocalCharacter(screenX, screenY);
+                // moveLocalCharacter(screenX, screenY);
                 break;
         }
         return false;
@@ -96,13 +122,9 @@ public class Controller implements InputProcessor {
         return false;
     }
 
-    private void moveLocalCharacter(int screenX, int screenY) {
-        Vector3 projected = new Vector3(screenX, screenY, 0);
-        window.unproject(projected); // Unprojects with the camera zoom, position matrix.
-        Vec2f position = Translations.screenToIso((int)projected.x, (int)projected.y);
-        Command command = new MoveCommand(localPlayer.getMob(), position);
+    private void moveLocalPlayer(GameObject.Direction direction) {
+        Command command = new MoveCommand(localPlayer.getMob(), direction);
         localPlayer.getMob().addCommand(command);
-        // TODO: Maybe there is a better solution, as this violate Demeter's law.
     }
 
     private void interruptLocalPlayer() {

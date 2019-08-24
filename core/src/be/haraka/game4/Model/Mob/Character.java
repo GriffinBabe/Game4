@@ -10,8 +10,8 @@ public abstract class Character extends Mob {
 
     // TODO: Implement Prototype pattern.
 
-    public Character(float x, float y, String objectName) {
-        super(x,y, objectName);
+    public Character(float x, float y, float width, float height, String objectName) {
+        super(x, y, width, height, objectName);
     }
 
 }

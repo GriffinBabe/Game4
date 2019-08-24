@@ -15,6 +15,9 @@ public class MobWalkState extends MobState {
     private GameObject.Direction direction;
     private float speed = 0.0f;
 
+    // If we already changed the direction of the moving mob.
+    private boolean mobNoticed = false;
+
     private static StateType STATE_TYPE = StateType.WALK;
 
     public MobWalkState(GameObject.Direction direction) {
@@ -36,7 +39,9 @@ public class MobWalkState extends MobState {
      */
     @Override
     public State updateState(float delta, GameObject object, World world) {
-        // TODO: Entire path completion, not only a single line.
+        if (!mobNoticed) {
+            object.changeDirection(direction);
+        }
         float oldX = object.x();
         float oldY = object.y();
         walk((Mob) object, world, delta);
@@ -69,16 +74,16 @@ public class MobWalkState extends MobState {
 
         switch (direction) {
             case N:
-                mob.move(0,speed);
+                mob.move(speed,0);
                 break;
             case S:
-                mob.move(0, -speed);
+                mob.move(-speed, 0);
                 break;
             case E:
-                mob.move(speed, 0);
+                mob.move(0, speed);
                 break;
             case W:
-                mob.move(-speed, 0);
+                mob.move(0, -speed);
                 break;
         }
     }
