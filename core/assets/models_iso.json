@@ -1,0 +1,227 @@
+{
+  "tiles" : [
+    {
+      "id": 0,
+      "path": "assets/tiles/wall1.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 1,
+      "path": "assets/tiles/wall4.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 2,
+      "path": "assets/tiles/wall5.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 3,
+      "path": "assets/tiles/wall2.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 4,
+      "path": "assets/tiles/wall3.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 5,
+      "path": "assets/tiles/wall6.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 16,
+      "path": "assets/tiles/wall8.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 17,
+      "path": "assets/tiles/wall7.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 6,
+      "path": "assets/tiles/brick.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 7,
+      "path": "assets/tiles/carpet1.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 8,
+      "path": "assets/tiles/carpet2.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 9,
+      "path": "assets/tiles/carpet3.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 10,
+      "path": "assets/tiles/carpet4.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 11,
+      "path": "assets/tiles/carpet5.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 12,
+      "path": "assets/tiles/carpet6.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 13,
+      "path": "assets/tiles/carpet7.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 14,
+      "path": "assets/tiles/carpet8.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 15,
+      "path": "assets/tiles/carpet9.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id":18,
+      "path": "assets/tiles/arch3.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 19,
+      "path": "assets/tiles/arch4.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 20,
+      "path": "assets/tiles/arch5.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 21,
+      "path": "assets/tiles/arch6.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 22,
+      "path": "assets/tiles/arch7.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 23,
+      "path": "assets/tiles/arch8.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 24,
+      "path": "assets/tiles/arch1.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 25,
+      "path": "assets/tiles/arch2.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 26,
+      "path": "assets/tiles/door1.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 27,
+      "path": "assets/tiles/door2.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 28,
+      "path": "assets/tiles/door2.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id":29,
+      "path": "assets/tiles/door4.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id":30,
+      "path": "assets/tiles/door8.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id":31,
+      "path": "assets/tiles/door7.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id":32,
+      "path": "assets/tiles/door6.png",
+      "animated": false,
+      "priority": 1
+    },
+    {
+      "id": 33,
+      "path": "assets/tiles/grass.png",
+      "animated": false,
+      "priority": 0
+    }
+  ],
+
+  "animations" : [
+    {
+      "name": "mob-human-walk",
+      "path": "assets/animations/mob-human/walk",
+      "extension" : ".atlas",
+      "duration" : 1.0,
+      "priority": 1,
+      "repeat": true
+    },
+    {
+      "name": "mob-human-idle",
+      "path": "assets/animations/mob-human/idle",
+      "extension" : ".atlas",
+      "duration": 5.0,
+      "priority": 1,
+      "repeat": true
+    }
+  ]
+}
