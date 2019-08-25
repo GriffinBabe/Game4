@@ -39,10 +39,10 @@ public class Controller implements InputProcessor {
                 moveLocalPlayer(GameObject.Direction.S);
                 break;
             case Keys.LEFT:
-                moveLocalPlayer(GameObject.Direction.E);
+                moveLocalPlayer(GameObject.Direction.W);
                 break;
             case Keys.RIGHT:
-                moveLocalPlayer(GameObject.Direction.W);
+                moveLocalPlayer(GameObject.Direction.E);
                 break;
             case Keys.S:
                 interruptLocalPlayer();

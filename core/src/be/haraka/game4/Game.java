@@ -28,7 +28,7 @@ public class Game extends ApplicationAdapter {
     public static int LOCAL_PLAYER_TEAM = 1;
     public static Player LOCAL_PLAYER = null;
 
-    private static String MAP_PATH = "assets/map/map2.json";
+    private static String MAP_PATH = "assets/map/map3.json";
 
     private World world;
     private Controller controller = null;

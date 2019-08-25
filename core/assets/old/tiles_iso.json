@@ -1,0 +1,88 @@
+{
+  "tiles": [
+    {
+      "name": "tile-void",
+      "id": [
+        -1
+      ],
+      "movement": 0.8,
+      "walkable": false
+    },
+    {
+      "name": "tile-grass",
+      "id": [
+        33
+      ],
+      "movement": 0.8,
+      "walkable": true
+    },
+    {
+      "name": "tile-brick",
+      "id": [
+        6
+      ],
+      "movement": 1.0,
+      "walkable": true
+    },
+    {
+      "name": "tile-carpet",
+      "id": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "movement": 1.2,
+      "walkable": true
+    },
+    {
+      "name": "tile-door",
+      "id": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "movement": 1.0,
+      "walkable": false
+    },
+    {
+      "name": "tile-arch",
+      "id": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "movement": 1.0,
+      "walkable": true
+    },
+    {
+      "name": "tile-wall",
+      "id": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        16,
+        17
+      ],
+      "movement": 1.0,
+      "walkable": false
+    }
+  ]
+}

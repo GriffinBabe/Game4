@@ -1,0 +1,37 @@
+{
+  "tiles": [
+    {
+      "name": "tile-void",
+      "id": [
+        -1
+      ],
+      "movement": 0.8,
+      "walkable": false
+    },
+    {
+      "name": "tile-grass",
+      "id": [
+        0
+      ],
+      "movement": 0.8,
+      "walkable": true
+    },
+    {
+      "name": "tile-wall",
+      "id": [
+        2
+      ],
+      "movement": 1.0,
+      "walkable": false
+    },
+    {
+      "name": "tile-path",
+      "id": [
+        1
+      ],
+      "movement": 1.1,
+      "walkable": true
+    }
+
+    ]
+}

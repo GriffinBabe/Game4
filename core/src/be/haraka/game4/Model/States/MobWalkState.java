@@ -74,16 +74,16 @@ public class MobWalkState extends MobState {
 
         switch (direction) {
             case N:
-                mob.move(speed,0);
+                mob.move(0,speed);
                 break;
             case S:
-                mob.move(-speed, 0);
+                mob.move(0, -speed);
                 break;
             case E:
-                mob.move(0, speed);
+                mob.move(speed, 0);
                 break;
             case W:
-                mob.move(0, -speed);
+                mob.move(-speed, 0);
                 break;
         }
     }

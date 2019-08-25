@@ -25,40 +25,32 @@ public class Translations {
     }
 
     /**
-     * Converts isometric position to screen (batch) position.
+     * Converts orthographic position to screen (batch) position.
      * (model to graphics)
      *
      * @param x, model x value
      * @param y, model y value
      * @return a vector containing both batch coordinates
      */
-    public static Vec2i isoToScreen(float x, float y) {
+    public static Vec2i orthoToScreen(float x, float y) {
         Vec2i position = new Vec2i();
-        float posX = ( x - y ) * (float)TILE_WIDTH;
-        float posY = ( x + y ) * (float)TILE_HEIGHT/2.0f;
-
-        position.x = (int) (posX + 0.5f); // Round to the closest integer
-        position.y = (int) (posY + 0.5f);
+        position.x = (int) (x*(float)TILE_WIDTH);
+        position.y = (int) (y*(float)TILE_HEIGHT);
         return position;
     }
 
     /**
-     * Converts screen position to isometric position.
+     * Converts screen position to orthographic position.
      * (graphics and input to model)
      *
      * @param screenX, screen X value
      * @param screenY, screen Y value
      * @return a vector containing both model coordinates
      */
-    public static Vec2f screenToIso(int screenX, int screenY) {
+    public static Vec2f screenToOrtho(int screenX, int screenY) {
         Vec2f position = new Vec2f();
-        float isoX = (float)screenY / (float)TILE_HEIGHT
-                + (float) screenX / ((float)TILE_WIDTH*2);
-        float isoY = (float) screenY / (float)TILE_HEIGHT
-                - (float) screenX / ((float)TILE_WIDTH*2);
-
-        position.x = isoX;
-        position.y = isoY;
+        position.x = ((float)screenX/(float)TILE_WIDTH);
+        position.y = ((float)screenY/(float)TILE_HEIGHT);
         return position;
     }
 }

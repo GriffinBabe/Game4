@@ -1,0 +1,40 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "path": "assets/tiles/grass_ortho.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 1,
+      "path": "assets/tiles/path_ortho.png",
+      "animated": false,
+      "priority": 0
+    },
+    {
+      "id": 2,
+      "path": "assets/tiles/wall_ortho.png",
+      "animated": false,
+      "priority": 1
+    }
+  ],
+  "animations": [
+    {
+      "name": "mob-human-walk",
+      "path": "assets/animations/mob-human/walk",
+      "extension" : ".atlas",
+      "duration" : 1.0,
+      "priority": 1,
+      "repeat": true
+    },
+    {
+      "name": "mob-human-idle",
+      "path": "assets/animations/mob-human/idle",
+      "extension" : ".atlas",
+      "duration": 5.0,
+      "priority": 1,
+      "repeat": true
+    }
+  ]
+}

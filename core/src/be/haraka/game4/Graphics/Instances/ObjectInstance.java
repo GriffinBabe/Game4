@@ -47,7 +47,7 @@ public class ObjectInstance implements Observer {
      */
     public void render(float delta, SpriteBatch batch) {
         Texture texture = model.getTexture();
-        Vec2i batchPos = Translations.isoToScreen(object.x(), object.y());
+        Vec2i batchPos = Translations.orthoToScreen(object.x(), object.y());
         batch.draw(texture, batchPos.x, batchPos.y);
     }
 
