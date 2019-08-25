@@ -186,10 +186,32 @@ public class World implements Observer {
      *         null if there is no collision.
      */
     public GameObject isColliding(SolidObject object) {
+        // First checks if there are other mobs, projectiles...
         for (GameObject o : objectList) {
             if (o instanceof SolidObject && o != object) {
                 if (Geo.isColliding(object, (SolidObject)o)) {
                     return object;
+                }
+            }
+        }
+        // Then checks on the tiles, this might return null as well
+        return isMapColliding(object);
+    }
+
+    /**
+     * Checks the collision between the given object and the map tiles.
+     *
+     * @param object, the object we want to check the collision on.
+     * @return null if no match, the tile if there is collision.
+     */
+    private GameObject isMapColliding(SolidObject object) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Tile t = map[x][y];
+                if (t.isWalkable()) {
+                    if (Geo.isColliding(object, (SolidObject) t)) {
+                        return t;
+                    }
                 }
             }
         }
