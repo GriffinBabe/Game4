@@ -2,6 +2,8 @@ package be.haraka.game4.Network;
 
 import be.haraka.game4.Log;
 import be.haraka.game4.Model.Mob.Event;
+import be.haraka.game4.Network.Packets.*;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -29,6 +31,28 @@ public class ClientApp extends Listener implements Observer {
             // TODO: couldn't connect to server message.
         }
 
+    }
+
+    /**
+     * Class packets that will be sent trought the
+     * network needs to be registered before communicating,
+     * according to the KryoNet's documentation.
+     *
+     * This function will register all the packet classes,
+     * and is very identical to {@link ServerApp#regiserClasses()}
+     * method. Classes must be registered both in the same order.
+     */
+    @SuppressWarnings("Duplicates")
+    private void regiserClasses() {
+        Kryo kryo = client.getKryo();
+        kryo.register(Packet.class);
+        kryo.register(ObjectPacket.class);
+        kryo.register(MovePacket.class);
+        kryo.register(IdlePacket.class);
+        kryo.register(ConnectPacket.class);
+        kryo.register(DisconnectionPacket.class);
+        kryo.register(AcceptConnectPacket.class);
+        kryo.register(DenyConnectPacket.class);
     }
 
     @Override

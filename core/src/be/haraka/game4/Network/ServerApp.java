@@ -1,6 +1,8 @@
 package be.haraka.game4.Network;
 
 import be.haraka.game4.Log;
+import be.haraka.game4.Network.Packets.*;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -42,6 +44,29 @@ public class ServerApp extends Listener {
         server.addListener(this);
     }
 
+
+    /**
+     * Class packets that will be sent trought the
+     * network needs to be registered before communicating,
+     * according to the KryoNet's documentation.
+     *
+     * This function will register all the packet classes,
+     * and is very identical to {@link ClientApp#regiserClasses()}
+     * method. Classes must be registered both in the same order.
+     */
+    @SuppressWarnings("Duplicates")
+    private void regiserClasses() {
+        Kryo kryo = server.getKryo();
+        kryo.register(Packet.class);
+        kryo.register(ObjectPacket.class);
+        kryo.register(MovePacket.class);
+        kryo.register(IdlePacket.class);
+        kryo.register(ConnectPacket.class);
+        kryo.register(DisconnectionPacket.class);
+        kryo.register(AcceptConnectPacket.class);
+        kryo.register(DenyConnectPacket.class);
+    }
+
     /**
      * Will be called upon each new message received.
      * @param connection, the address of our client.
@@ -50,6 +75,9 @@ public class ServerApp extends Listener {
     @Override
     public void received(Connection connection, Object object) {
         // TODO: Handle requestes
+        if (object instanceof ConnectPacket) {
+            System.out.println(((ConnectPacket) object).username);
+        }
     }
 
     /**
