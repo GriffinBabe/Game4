@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
-    // Server mode disable all the graphics
+    // ServerApp mode disable all the graphics
     public static boolean SERVER_MODE = false;
 
     // Used by several classes, mostly graphical
