@@ -5,6 +5,7 @@ import be.haraka.game4.Game;
 import be.haraka.game4.Network.ServerApp;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import org.lwjgl.Sys;
 
 public class DesktopLauncher {
 
@@ -14,12 +15,16 @@ public class DesktopLauncher {
 	private static String CLIENT_TEST_MODE = "-client";
 
 	public static void main (String[] arg) {
-		if (arg[0].equals(SERVER_MODE)) {
-            ServerApp server = new ServerApp();
-            server.start();
-        } else if (arg[0].equals(CLIENT_TEST_MODE)) {
-		    ClientApp clientApp = new ClientApp();
-		    clientApp.start();
+		if (arg.length > 0) {
+			if (arg[0].equals(SERVER_MODE)) {
+				ServerApp server = new ServerApp();
+				server.start();
+			} else if (arg[0].equals(CLIENT_TEST_MODE)) {
+				ClientApp clientApp = new ClientApp();
+				clientApp.start();
+			} else {
+				System.out.println("Unknown parameter");
+			}
 		} else {
 			LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 			config.foregroundFPS = FPS_CAP;

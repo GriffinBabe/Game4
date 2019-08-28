@@ -1,13 +1,16 @@
 package be.haraka.game4.Network;
 
 import be.haraka.game4.Log;
+import be.haraka.game4.Model.Mob.Event;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ClientApp extends Listener {
+public class ClientApp extends Listener implements Observer {
 
     private Client client = new Client();
     // 5 sec connection timeout.
@@ -38,8 +41,24 @@ public class ClientApp extends Listener {
         super.disconnected(connection);
     }
 
+
     @Override
     public void received(Connection connection, Object object) {
         super.received(connection, object);
+    }
+
+    /**
+     * Called when a GameObject is performing an action, as moving,
+     * changing state, etc... Will then act on the server.
+     *
+     * @param o, the observable.
+     * @param arg, Event from the observable.
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        switch ((Event) arg) {
+            case CHANGED_STATE:
+
+        }
     }
 }

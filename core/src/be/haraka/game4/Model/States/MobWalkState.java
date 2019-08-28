@@ -2,6 +2,7 @@ package be.haraka.game4.Model.States;
 
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.World;
+import be.haraka.game4.Model.Mob.Event;
 import be.haraka.game4.Model.Mob.Mob;
 import be.haraka.game4.Model.Mob.SolidObject;
 
@@ -41,6 +42,9 @@ public class MobWalkState extends MobState {
     public State updateState(float delta, GameObject object, World world) {
         if (!mobNoticed) {
             object.changeDirection(direction);
+            // Notifies observers that the mob switched to a WALK STATE
+            object.notifyObservers(Event.STATE_WALK);
+            mobNoticed = true;
         }
         float oldX = object.x();
         float oldY = object.y();
