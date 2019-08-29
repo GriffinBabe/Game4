@@ -7,11 +7,13 @@ import be.haraka.game4.Model.Map.MobSpawner;
 import be.haraka.game4.Model.Map.World;
 import be.haraka.game4.Model.Mob.Mob;
 import be.haraka.game4.Model.Player;
+import be.haraka.game4.Network.ClientApp;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Main model class. Entry point from LIBGDX.
@@ -34,7 +36,9 @@ public class Game extends ApplicationAdapter {
     private Controller controller = null;
     private Window window = null;
 
-    private List<Player> players = new ArrayList<>();
+    /** {@link ClientApp} inversion of control. */
+    private Observer networkObserver;
+
 
     /**
      * Called when the game is started.
@@ -52,8 +56,6 @@ public class Game extends ApplicationAdapter {
             Mob human = spawner.spawnMob("mob-human");
             human.setX(10); human.setY(10);
             world.newObject(human);
-            LOCAL_PLAYER = new Player("GriffinBabe", human);
-            players.add(LOCAL_PLAYER);
 
             Mob human2 = spawner.spawnMob("mob-human");
             human2.setX(1);
@@ -62,6 +64,9 @@ public class Game extends ApplicationAdapter {
 
             controller = new Controller(this, window, LOCAL_PLAYER);
             Gdx.input.setInputProcessor(controller);
+        } else {
+		    // Server mode!
+
         }
 	}
 
@@ -92,6 +97,7 @@ public class Game extends ApplicationAdapter {
      */
 	public void newObject(GameObject o) {
 	    window.newObject(o);
+	    o.addObserver(networkObserver);
     }
 
     /**
@@ -99,5 +105,16 @@ public class Game extends ApplicationAdapter {
      * gets deleted.
      * @param o
      */
-    public void deleteObject(GameObject o) {window.deleteObject(o);}
+    public void deleteObject(GameObject o) {
+        window.deleteObject(o);
+        o.deleteObserver(networkObserver);
+    }
+
+    /**
+     * Sets the network's observer.
+     * @param o
+     */
+    public void setObserver(Observer o) {
+        networkObserver = o;
+    }
 }

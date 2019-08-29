@@ -1,5 +1,6 @@
 package be.haraka.game4.Network;
 
+import be.haraka.game4.Game;
 import be.haraka.game4.Log;
 import be.haraka.game4.Network.Packets.*;
 import com.esotericsoftware.kryo.Kryo;
@@ -16,6 +17,8 @@ import java.util.Iterator;
  * ServerApp is the main server class, extends the {@link Listener}
  * class.
  *
+ * Contrary to {@link ClientApp}, ServerApp will run by itself the game.
+ *
  * {@link #received(Connection, Object)} will handle all the received packets.
  *
  * The UDP and TCP ports are defined by default.
@@ -28,10 +31,48 @@ public class ServerApp extends Listener {
     public static int UDP_PORT = 2050;
     public static String LOCAL_IP = "localhost";
 
+    /** Number of times the game is updated per second server side */
+    private static int TICK_RATE = 30;
+    private static float TIME_PER_TICK = 1000.0f/((float) TICK_RATE);
+
     private static String LOG_PREFIX = "[Server]";
     public static Log log = new Log(LOG_PREFIX);
 
+    /** Reference to the game */
+    private Game game;
+
     private HashMap<String, User> userMap;
+
+    public ServerApp(Game game) {
+        this.game = game;
+        game.create();
+    }
+
+    /**
+     * Main game.
+     */
+    public void run() {
+        float begin, end, delta;
+        while (true) {
+            // TODO: Find another way as Game is using Gdx.graphics.getDeltaTime();
+            // https://stackoverflow.com/questions/30789626/how-can-i-run-a-libgdx-application-on-a-non-gui-server-environment
+            begin = System.currentTimeMillis();
+
+            game.render();
+
+            end = System.currentTimeMillis();
+            delta = end - begin;
+            if (delta< TIME_PER_TICK) {
+                try {
+                    Thread.sleep((long) (TIME_PER_TICK - delta));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                log.addMessage("Game render takes too long!");
+            }
+        }
+    }
 
     /**
      * Starts a {@link com.esotericsoftware.kryonet.Server}

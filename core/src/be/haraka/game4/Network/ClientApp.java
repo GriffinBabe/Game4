@@ -1,5 +1,6 @@
 package be.haraka.game4.Network;
 
+import be.haraka.game4.Game;
 import be.haraka.game4.Log;
 import be.haraka.game4.Model.Mob.Event;
 import be.haraka.game4.Network.Packets.*;
@@ -20,6 +21,13 @@ public class ClientApp extends Listener implements Observer {
 
     private static String LOG_PREFIX = "[Network] ";
     public static Log networkLog = new Log(LOG_PREFIX);
+
+    /** Reference to the game. */
+    private Game game;
+
+    public ClientApp(Game game) {
+        this.game = game;
+    }
 
     public void start() {
         try {
