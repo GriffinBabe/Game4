@@ -8,6 +8,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 
 
 /**
@@ -29,6 +31,8 @@ public class ServerApp extends Listener {
     private static String LOG_PREFIX = "[Server]";
     public static Log log = new Log(LOG_PREFIX);
 
+    private HashMap<String, User> userMap;
+
     /**
      * Starts a {@link com.esotericsoftware.kryonet.Server}
      * class and links this class as a listener.
@@ -36,7 +40,11 @@ public class ServerApp extends Listener {
     public void start() {
         try {
             server.start();
+            log.addMessage("Server started");
             server.bind(TCP_PORT, UDP_PORT);
+            log.addMessage("Server bind to ports: "
+                    +TCP_PORT+"/"+UDP_PORT);
+            registerClasses();
         } catch (IOException e) {
             log.addMessage(e.getMessage());
             System.exit(-1);
@@ -51,11 +59,11 @@ public class ServerApp extends Listener {
      * according to the KryoNet's documentation.
      *
      * This function will register all the packet classes,
-     * and is very identical to {@link ClientApp#regiserClasses()}
+     * and is very identical to {@link ClientApp#registerClasses()}
      * method. Classes must be registered both in the same order.
      */
     @SuppressWarnings("Duplicates")
-    private void regiserClasses() {
+    private void registerClasses() {
         Kryo kryo = server.getKryo();
         kryo.register(Packet.class);
         kryo.register(ObjectPacket.class);
@@ -65,6 +73,8 @@ public class ServerApp extends Listener {
         kryo.register(DisconnectionPacket.class);
         kryo.register(AcceptConnectPacket.class);
         kryo.register(DenyConnectPacket.class);
+        kryo.register(UserConnectedPacket.class);
+        kryo.register(LoadMapPacket.class);
     }
 
     /**
@@ -76,8 +86,50 @@ public class ServerApp extends Listener {
     public void received(Connection connection, Object object) {
         // TODO: Handle requestes
         if (object instanceof ConnectPacket) {
-            System.out.println(((ConnectPacket) object).username);
+            handleConnection(connection, (ConnectPacket) object);
         }
+    }
+
+    /**
+     * Checks if the given username exists in the hashmap.
+     * If it doesn't exists, we have a new connecting username.
+     * If it does exists and the status in connected then the
+     * connection is refused.
+     * If it does exists and the status in disconnected then
+     * we have a reconnection.
+     *
+     * @param connection, the connection address
+     * @param packet, the {@link ConnectPacket} containing
+     *                the username.
+     */
+    private void handleConnection(Connection connection, ConnectPacket packet) {
+        User user = userMap.get(packet.username);
+        if (user == null) {
+            User newuser = new User(connection, packet.username);
+            userMap.put(packet.username, newuser);
+            newuser.setConnected();
+            updateGame(connection, newuser);
+        } else if (user.getStatus() == NetStatus.CONNECTED) {
+            DenyConnectPacket denyPacket = new DenyConnectPacket();
+            denyPacket.message = "An user is already connected with this username.";
+            connection.sendTCP(denyPacket);
+        } else if (user.getStatus() == NetStatus.DISCONNECTED) {
+            AcceptConnectPacket acceptPacket = new AcceptConnectPacket();
+            acceptPacket.message = "You reconnected.";
+            connection.sendTCP(acceptPacket);
+            user.setConnected();
+            updateGame(connection, user);
+        }
+    }
+
+    /**
+     * Used to a new connecting, or reconnecting player to
+     * update all the world's GameObjects.
+     * @param connection
+     * @param user
+     */
+    private void updateGame(Connection connection, User user) {
+        // TODO: write that method
     }
 
     /**
@@ -88,8 +140,7 @@ public class ServerApp extends Listener {
      */
     @Override
     public void connected(Connection connection) {
-        log.addMessage("New client connected from address: "+connection.toString());
-        // TODO: Handle new connection.
+        log.addMessage("New client connected from address: "+connection.getRemoteAddressTCP());
     }
 
     /**
@@ -98,7 +149,32 @@ public class ServerApp extends Listener {
      */
     @Override
     public void disconnected(Connection connection) {
-        log.addMessage("Client from address: "+connection.toString()+" disconnected.");
+        log.addMessage("Client from address: "+connection.getRemoteAddressTCP()+" disconnected.");
+        // Disconnecting user
+        User user = getUserByConnection(connection);
+        if (user != null) {
+            user.setDisconnected();
+        }
         super.disconnected(connection);
     }
+
+    /**
+     * Searches into the hashmap for a user with the given
+     * {@link Connection}.
+     *
+     * @param connection, the connection of the user we
+     *                    want to search.
+     * @return the user, null if no match.
+     */
+    private User getUserByConnection(Connection connection) {
+        Iterator it = userMap.entrySet().iterator();
+        while (it.hasNext()) {
+            User user = (User) it.next();
+            if (user.matchConnection(connection)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
 }

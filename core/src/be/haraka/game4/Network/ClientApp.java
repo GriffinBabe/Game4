@@ -24,8 +24,12 @@ public class ClientApp extends Listener implements Observer {
     public void start() {
         try {
             client.start();
+            registerClasses();
             client.connect(TIME_OUT, ServerApp.LOCAL_IP,
                     ServerApp.TCP_PORT, ServerApp.UDP_PORT);
+            ConnectPacket packet = new ConnectPacket();
+            packet.username = "GriffinBabe";
+            client.sendTCP(packet);
         } catch (IOException e) {
             networkLog.addMessage(e.getMessage());
             // TODO: couldn't connect to server message.
@@ -39,11 +43,11 @@ public class ClientApp extends Listener implements Observer {
      * according to the KryoNet's documentation.
      *
      * This function will register all the packet classes,
-     * and is very identical to {@link ServerApp#regiserClasses()}
+     * and is very identical to {@link ServerApp#registerClasses()}
      * method. Classes must be registered both in the same order.
      */
     @SuppressWarnings("Duplicates")
-    private void regiserClasses() {
+    private void registerClasses() {
         Kryo kryo = client.getKryo();
         kryo.register(Packet.class);
         kryo.register(ObjectPacket.class);
@@ -53,6 +57,8 @@ public class ClientApp extends Listener implements Observer {
         kryo.register(DisconnectionPacket.class);
         kryo.register(AcceptConnectPacket.class);
         kryo.register(DenyConnectPacket.class);
+        kryo.register(UserConnectedPacket.class);
+        kryo.register(LoadMapPacket.class);
     }
 
     @Override

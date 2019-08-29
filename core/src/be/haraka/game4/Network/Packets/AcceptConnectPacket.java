@@ -5,6 +5,6 @@ package be.haraka.game4.Network.Packets;
  */
 public class AcceptConnectPacket extends Packet {
 
-    /** The team of the player */
-    public char team;
+    /** The welcoming message */
+    public String message;
 }

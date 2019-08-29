@@ -6,5 +6,5 @@ package be.haraka.game4.Network.Packets;
 public class DenyConnectPacket extends Packet {
 
     /** The reason of the deny */
-    public String denyReason;
+    public String message;
 }

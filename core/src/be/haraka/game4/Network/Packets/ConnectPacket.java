@@ -7,5 +7,5 @@ package be.haraka.game4.Network.Packets;
 public class ConnectPacket extends Packet {
 
     /** Chosen username from the player */
-    public static String username;
+    public String username;
 }
