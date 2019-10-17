@@ -4,8 +4,10 @@ import be.haraka.game4.Model.Mob.Mob;
 
 public class Player {
 
+    private PlayerRole player;
     private String username;
     private Mob mob = null;
+    private int score = 0;
 
     public Player(String username) {
         this.username = username;
