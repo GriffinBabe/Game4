@@ -26,6 +26,8 @@ public class DesktopLauncher {
 			config.foregroundFPS = FPS_CAP;
 			Game game = new Game();
 			Game.SERVER_MODE = false; // sets the game to client mode.
+			ClientApp client = new ClientApp(game);
+			client.start();
 			new LwjglApplication(game, config);
 		}
 

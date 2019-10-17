@@ -41,7 +41,7 @@ public class ServerApp extends Listener {
     /** Reference to the game */
     private Game game;
 
-    private HashMap<String, User> userMap;
+    private HashMap<String, User> userMap = new HashMap<>();
 
     public ServerApp(Game game) {
         this.game = game;

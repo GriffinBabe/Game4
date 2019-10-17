@@ -13,6 +13,13 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * ClientApp will observe any changes in the game and
+ * communicate with the server.
+ *
+ * @author GriffinBabe
+ */
+
 public class ClientApp extends Listener implements Observer {
 
     private Client client = new Client();
@@ -27,8 +34,13 @@ public class ClientApp extends Listener implements Observer {
 
     public ClientApp(Game game) {
         this.game = game;
+        this.game.setObserver(this);
     }
 
+    /**
+     * Will start kryonet functionalities and connect to the server
+     * by sending an username packet.
+     */
     public void start() {
         try {
             client.start();
