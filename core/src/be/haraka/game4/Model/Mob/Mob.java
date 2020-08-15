@@ -28,6 +28,7 @@ public class Mob extends SolidObject {
     private static Direction DEFAULT_DIRECTION = Direction.S;
     private static State DEFAULT_ACTION_STATE = new MobIdleState();
 
+    // current mob State, changes the status
     private State actionState;
 
     // Equipped weapon
@@ -122,7 +123,7 @@ public class Mob extends SolidObject {
             Stat stat = statList.get(key);
             StatModifier modifier = item.getStat(key);
             stat.addAdditional(modifier.getAdditional());
-            stat.addMultiplier(modifier.getMutliplier());
+            stat.addMultiplier(modifier.getMultiplier());
         }
         equipments.add(item);
     }
@@ -139,7 +140,7 @@ public class Mob extends SolidObject {
             Stat stat = statList.get(key);
             StatModifier modifier = item.getStat(key);
             stat.removeAdditional(modifier.getAdditional());
-            stat.removeMultiplier(modifier.getMutliplier());
+            stat.removeMultiplier(modifier.getMultiplier());
         }
         equipments.remove(item);
     }

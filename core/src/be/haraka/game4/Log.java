@@ -66,7 +66,8 @@ public class Log {
         private int priority = 1;
 
         public LogMessage(String message) {
-            time = new Date();
+            this.message = message;
+            this.time = new Date();
         }
 
         @Override
