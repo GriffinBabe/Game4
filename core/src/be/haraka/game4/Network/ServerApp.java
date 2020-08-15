@@ -11,6 +11,8 @@ import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -23,7 +25,7 @@ import java.util.Iterator;
  *
  * The UDP and TCP ports are defined by default.
  */
-public class ServerApp extends Listener {
+public class ServerApp extends Listener implements Observer {
 
     Server server = new Server();
 
@@ -41,10 +43,11 @@ public class ServerApp extends Listener {
     /** Reference to the game */
     private Game game;
 
-    private HashMap<String, User> userMap;
+    private HashMap<String, User> userMap = new HashMap<>();
 
     public ServerApp(Game game) {
         this.game = game;
+        this.game.setObserver(this);
         game.create();
     }
 
@@ -150,6 +153,9 @@ public class ServerApp extends Listener {
             userMap.put(packet.username, newuser);
             newuser.setConnected();
             updateGame(connection, newuser);
+            AcceptConnectPacket acceptPacket = new AcceptConnectPacket();
+            acceptPacket.message = "welcome";
+            connection.sendTCP(acceptPacket);
         } else if (user.getStatus() == NetStatus.CONNECTED) {
             DenyConnectPacket denyPacket = new DenyConnectPacket();
             denyPacket.message = "An user is already connected with this username.";
@@ -218,4 +224,8 @@ public class ServerApp extends Listener {
         return null;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }
