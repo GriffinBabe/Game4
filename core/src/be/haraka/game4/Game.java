@@ -62,6 +62,8 @@ public class Game extends ApplicationAdapter {
             human2.setY(1);
             world.newObject(human2);
 
+            LOCAL_PLAYER = new Player("GriffinBabe", human);
+
             controller = new Controller(this, window, LOCAL_PLAYER);
             Gdx.input.setInputProcessor(controller);
         } else {
