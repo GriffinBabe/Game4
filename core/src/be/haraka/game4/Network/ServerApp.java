@@ -52,13 +52,13 @@ public class ServerApp extends Listener {
      * Main game.
      */
     public void run() {
-        float begin, end, delta;
+        float begin, end, delta = 0.0f;
         while (true) {
             // TODO: Find another way as Game is using Gdx.graphics.getDeltaTime();
             // https://stackoverflow.com/questions/30789626/how-can-i-run-a-libgdx-application-on-a-non-gui-server-environment
             begin = System.currentTimeMillis();
 
-            game.render();
+            game.render(delta);
 
             end = System.currentTimeMillis();
             delta = end - begin;

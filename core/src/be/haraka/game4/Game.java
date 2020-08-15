@@ -74,11 +74,19 @@ public class Game extends ApplicationAdapter {
      * Main Loop of the Game.
      * Game logic update and graphics render.
      */
+
+    public void render(float delta) {
+        this.world.updateLogic(delta);
+        this.window.render(delta);
+    }
+
+    /**
+     * Get the delta time and calls the main loop {@link #render(float)}
+     */
 	@Override
 	public void render () {
         float delta = Gdx.graphics.getDeltaTime();
-        this.world.updateLogic(delta);
-        this.window.render(delta);
+        render(delta);
 	}
 
     /**

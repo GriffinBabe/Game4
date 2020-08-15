@@ -5,6 +5,7 @@ import be.haraka.game4.Graphics.Instances.MobInstance;
 import be.haraka.game4.Graphics.Instances.ObjectInstance;
 import be.haraka.game4.Graphics.Models.Model;
 import be.haraka.game4.Graphics.Models.ModelList;
+import be.haraka.game4.Log;
 import be.haraka.game4.Model.GameObject;
 import be.haraka.game4.Model.Map.Tile;
 import be.haraka.game4.Model.Map.World;
@@ -30,6 +31,9 @@ import java.util.List;
  */
 
 public class Window {
+
+    private static String LOG_PREFIX = "[Graphics]";
+    private static Log log;
 
     // Initial window size. Can be resized.
     private static int WIDTH = 1280;
@@ -62,6 +66,7 @@ public class Window {
 
         batch = new SpriteBatch();
         camera = new Camera();
+        log = new Log(LOG_PREFIX);
 
         // Initializes the modellist while loading the game, not during runtime.
         ModelList.getInstance();
@@ -122,7 +127,14 @@ public class Window {
      * @param o, the deleted GameObject.
      */
     public void deleteObject(GameObject o) {
-        // TODO: Remove the respective object instance.
+        ObjectInstance instance = this.renderInstances.stream()
+                .filter(inst -> inst.reflectsObject(o))
+                .findAny()
+                .orElse(null);
+        if (instance == null)
+            log.addMessage(String.format("Deleted object %s has no ObjectInstance.", o.toString()));
+        else
+            renderInstances.remove(instance);
     }
 
     /**

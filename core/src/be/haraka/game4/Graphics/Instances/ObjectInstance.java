@@ -51,6 +51,15 @@ public class ObjectInstance implements Observer {
         batch.draw(texture, batchPos.x, batchPos.y);
     }
 
+    /**
+     * Compares the given object with the instance current {@link GameObject}.
+     * @param obj the {@link GameObject} to compare with.
+     * @return true if the objects are the same, false otherwise.
+     */
+    public boolean reflectsObject(GameObject obj) {
+        return obj == object;
+    }
+
     public float getX() {return object.x();}
 
     public float getY() {return object.y();}

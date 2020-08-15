@@ -80,11 +80,6 @@ public class ClientApp extends Listener implements Observer {
     }
 
 
-    @Override
-    public void received(Connection connection, Object object) {
-        super.received(connection, object);
-    }
-
     /**
      * Called when a GameObject is performing an action, as moving,
      * changing state, etc... Will then act on the server.
