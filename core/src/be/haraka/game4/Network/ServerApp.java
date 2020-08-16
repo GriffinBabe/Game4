@@ -34,8 +34,12 @@ public class ServerApp extends Listener implements Observer {
     public static String LOCAL_IP = "localhost";
 
     /** Number of times the game is updated per second server side */
-    private static int TICK_RATE = 30;
+    private static int TICK_RATE = 40;
     private static float TIME_PER_TICK = 1000.0f/((float) TICK_RATE);
+
+    /** Number of times the server sends delta snap updates */
+    private static int SNAP_RATE = 20;
+    private static float TIME_PER_SNAP = 1000.0f/((float) SNAP_RATE);
 
     private static String LOG_PREFIX = "[Server]";
     public static Log log = new Log(LOG_PREFIX);

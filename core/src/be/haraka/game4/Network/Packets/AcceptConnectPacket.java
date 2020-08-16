@@ -7,4 +7,10 @@ public class AcceptConnectPacket extends Packet {
 
     /** The welcoming message */
     public String message;
+
+    /** Server update rate information */
+    public int tickrate;
+
+    /** Server snapshot rate information */
+    public int snaprate;
 }

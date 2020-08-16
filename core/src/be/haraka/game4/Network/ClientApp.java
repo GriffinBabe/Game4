@@ -23,11 +23,14 @@ import java.util.Observer;
 public class ClientApp extends Listener implements Observer {
 
     private Client client = new Client();
+
     // 5 sec connection timeout.
     private static int TIME_OUT = 5000;
 
     private static String LOG_PREFIX = "[Network] ";
     public static Log networkLog = new Log(LOG_PREFIX);
+
+    private NetStatus status = NetStatus.DISCONNECTED;
 
     /** Reference to the game. */
     private Game game;
@@ -81,6 +84,23 @@ public class ClientApp extends Listener implements Observer {
         kryo.register(DeltaSnapshotPacket.class);
     }
 
+    /**
+     * Will be called upon each new message received.
+     * @param connection, the server connection.
+     * @param object, the given request.
+     */
+    @Override
+    public void received(Connection connection, Object object) {
+        // TODO: Handle requestes
+        if (object instanceof AcceptConnectPacket ||
+            object instanceof DenyConnectPacket) {
+            handleConnection(connection, (Packet) object);
+        }
+        else if (object instanceof SnapshotPacket) {
+            queueSnapshot((SnapshotPacket) object);
+        }
+    }
+
     @Override
     public void connected(Connection connection) {
         super.connected(connection);
@@ -105,5 +125,20 @@ public class ClientApp extends Listener implements Observer {
             case CHANGED_STATE:
 
         }
+    }
+
+    private void handleConnection(Connection connection, Packet packet) {
+        if (packet instanceof AcceptConnectPacket) {
+            this.status = NetStatus.CONNECTED; // connected to the server
+        }
+        else if (packet instanceof DenyConnectPacket) {
+            this.status = NetStatus.DISCONNECTED;
+            this.client.close();
+            // this.game.disconnected();
+        }
+    }
+
+    private void queueSnapshot(SnapshotPacket packet) {
+
     }
 }
