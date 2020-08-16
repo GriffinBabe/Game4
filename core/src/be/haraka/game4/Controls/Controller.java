@@ -20,13 +20,16 @@ public class Controller implements InputProcessor {
 
 
     private Game game;
-    private Player localPlayer;
+    private Player controlledPlayer = null;
     private Window window;
 
-    public Controller(Game game, Window window, Player localPlayer) {
+    public Controller(Game game, Window window) {
         this.window = window;
         this.game = game;
-        this.localPlayer = localPlayer;
+    }
+
+    public void setControlledPlayer(Player p) {
+        this.controlledPlayer = p;
     }
 
     @Override
@@ -123,13 +126,17 @@ public class Controller implements InputProcessor {
     }
 
     private void moveLocalPlayer(GameObject.Direction direction) {
-        Command command = new MoveCommand(localPlayer.getMob(), direction);
-        localPlayer.getMob().addCommand(command);
+        if (controlledPlayer != null) {
+            Command command = new MoveCommand(controlledPlayer.getMob(), direction);
+            controlledPlayer.getMob().addCommand(command);
+        }
     }
 
     private void interruptLocalPlayer() {
-        Command command = new InterruptCommand();
-        localPlayer.getMob().addCommand(command);
+        if (controlledPlayer != null) {
+            Command command = new InterruptCommand();
+            controlledPlayer.getMob().addCommand(command);
+        }
     }
 
 

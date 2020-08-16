@@ -111,8 +111,6 @@ public class ServerApp extends Listener implements Observer {
         Kryo kryo = server.getKryo();
         kryo.register(Packet.class);
         kryo.register(ObjectPacket.class);
-        kryo.register(MovePacket.class);
-        kryo.register(IdlePacket.class);
         kryo.register(ConnectPacket.class);
         kryo.register(DisconnectionPacket.class);
         kryo.register(AcceptConnectPacket.class);

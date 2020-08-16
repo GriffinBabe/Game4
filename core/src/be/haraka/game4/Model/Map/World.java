@@ -217,4 +217,12 @@ public class World implements Observer {
         }
         return null;
     }
+
+    public GameObject getNetworkObject(Long id) {
+        return objectList
+                .stream()
+                .filter(obj -> obj.getNetId() != null && obj.getNetId().equals(id))
+                .findAny()
+                .orElse(null);
+    }
 }

@@ -11,6 +11,10 @@ public abstract class GameObject extends WorkingObservable {
     // Helpful to find which render do we need
     protected String objectName;
 
+    /** Network unique id, used only in network shared GameObjects. */
+    private Long netId = null;
+    private boolean isNetworked = false;
+
     public GameObject(float x, float y, String objectName) {
         this.x = x;
         this.y = y;
@@ -109,6 +113,19 @@ public abstract class GameObject extends WorkingObservable {
      * @return a cloned instance of this one.
      */
     public abstract GameObject clone();
+
+    public void enableNetworking(Long netId) {
+        this.netId = netId;
+        this.isNetworked = true;
+    }
+
+    public boolean isNetworked() {
+        return this.isNetworked;
+    }
+
+    public Long getNetId() {
+        return this.netId;
+    }
 
     /**
      * GameObject orientation, {@link GameObject} default's direction

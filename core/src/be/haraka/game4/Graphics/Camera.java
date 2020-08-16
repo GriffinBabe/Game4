@@ -88,7 +88,7 @@ public class Camera {
      * Toggles the camera lock on the player.
      */
     public void toggleLock() {
-        locked = !locked;
+        locked = Game.LOCAL_PLAYER != null && !locked;
     }
 
     /**

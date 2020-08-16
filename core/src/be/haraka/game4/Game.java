@@ -52,19 +52,7 @@ public class Game extends ApplicationAdapter {
             window = new Window();
             window.setTilesInstances(world);
 
-            MobSpawner spawner = new MobSpawner();
-            Mob human = spawner.spawnMob("mob-human");
-            human.setX(10); human.setY(10);
-            world.newObject(human);
-
-            Mob human2 = spawner.spawnMob("mob-human");
-            human2.setX(1);
-            human2.setY(1);
-            world.newObject(human2);
-
-            LOCAL_PLAYER = new Player("GriffinBabe", human);
-
-            controller = new Controller(this, window, LOCAL_PLAYER);
+            controller = new Controller(this, window);
             Gdx.input.setInputProcessor(controller);
         } else {
 		    // Server mode!

@@ -71,14 +71,14 @@ public class ClientApp extends Listener implements Observer {
         Kryo kryo = client.getKryo();
         kryo.register(Packet.class);
         kryo.register(ObjectPacket.class);
-        kryo.register(MovePacket.class);
-        kryo.register(IdlePacket.class);
         kryo.register(ConnectPacket.class);
         kryo.register(DisconnectionPacket.class);
         kryo.register(AcceptConnectPacket.class);
         kryo.register(DenyConnectPacket.class);
         kryo.register(UserConnectedPacket.class);
         kryo.register(LoadMapPacket.class);
+        kryo.register(SnapshotPacket.class);
+        kryo.register(DeltaSnapshotPacket.class);
     }
 
     @Override
